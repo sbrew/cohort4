@@ -124,17 +124,32 @@ doWhile: (num) => {
     let i = 0;
     do {num = num +i;
     i++;
-} 
+    }
     while (i < 5);
     return num;
-}
+},
 
 // -forEach (with array and function)
 //  advised to skip as these are horrible to do
+// bad practice/no one uses anymore
 
 // Objects / Dictionaries
 // -declare object
+//     did this code above in updateObject function
+
+
 // -lookup key to retrieve value
+
+lookupObj: (object, property) =>{
+    var vehicle = {
+        brand : "Dodge",
+        model : 'Ram 2500',
+        fuel  : "diesel"
+      };
+            return (vehicle.fuel);
+},
+
+
 };
 
 export default functions;

@@ -71,3 +71,7 @@ test('While you were looping', () =>{
 test('How do/while you do', () => {
     expect(functions.doWhile(3)).toStrictEqual(13);
 });
+
+test('lookup the Object', () => {
+    expect(functions.lookupObj("vehicle.fuel")).toBe('diesel')
+});
