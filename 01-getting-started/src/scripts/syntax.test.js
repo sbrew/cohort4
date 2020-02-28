@@ -17,6 +17,7 @@ test('True or False', () => {
 
 test('Update the Array', () => {
     expect(functions.updateArray(69)).toStrictEqual([69,69,69]);
+    expect(functions.updateArray(70)).toStrictEqual([69,70,69]);
 });
 // for an array, If it should pass with deep equality, replace "toBe" with "toStrictEqual"
 // recieved side is the location being uodated, expected side is the full updated array
@@ -75,3 +76,6 @@ test('How do/while you do', () => {
 test('lookup the Object', () => {
     expect(functions.lookupObj("vehicle.fuel")).toBe('diesel')
 });
+
+// object.prop needed to be in quotaions to properly identify
+// otherwise it was kicked back as undefined
