@@ -90,11 +90,95 @@
         </div>
     </div>
 
+
     <div class="w3-content w3-container w3-padding-64 w3-center" id="idSize">
         Did you know that =>
         <input id="idNumber" type="number"> is a <span id="idNumberSize">unknown</span> number?
         <p id="idNumberSizexx"></p>
     </div>
+
+    <!-- ---------- CALCULATOR------------------ -->
+    <div class="bgimg-2 w3-display-container w3-opacity-min">
+        <div class="w3-display-middle">
+            <span class="w3-xxlarge w3-text-white w3-wide">Fancy Calculator</span>
+        </div>
+    </div>
+    <script src="calcScript.js" defer></script> 
+      <!--  using defer to make sure the entire page loads first
+        step below -- wraps the calculator so we can make a grid
+         output div is for area to place final answer
+        the operands are for showing number being enter and number already entered -->
+    <div class="calculator-grid"> 
+        <div class="output">
+            <div data-previous-operand class="previous-operand"></div>
+            <div data-current-operand class="current-operand"></div> 
+        </div>
+        <button data-all-clear class="span-two">AC</button>
+        <button data-delete>DEL</button>
+        <button data-operation>/</button>
+        <!--using data attributes instead of classes to not mix with the styling classes
+             easier to see which parts are being used by css and which are used by javascript-->
+        <button data-number>1</button>
+        <button data-number>2</button>
+        <button data-number>3</button>
+        <button data-operation>*</button>
+        <button data-number>4</button>
+        <button data-number>5</button>
+        <button data-number>6</button>
+        <button data-operation>+</button>
+        <button data-number>7</button>
+        <button data-number>8</button>
+        <button data-number>9</button>
+        <button data-operation>-</button>
+        <button data-number>.</button>
+        <button data-number>0</button>
+        <button data-equals class="span-two">=</button>
+    </div>
+
+    
+    <!-- ---------- Second Parallax Image with Size------------------ -->
+
+    <div class="bgimg-2 w3-display-container w3-opacity-min">
+        <div class="w3-display-middle">
+            <span class="w3-xxlarge w3-text-white w3-wide">My Calculator</span>
+        </div>
+    </div>
+   
+        <div id="calcDiv" class="calc-grid">
+        Value 1: <input id="number1" type="text">
+        Value 2: <input id="number2" type="text"><br>
+        <input type="radio" id="add" name="drone" value="add">
+        <label for="add">+</label>
+        <input type="radio" id="minus" name="drone" value="minus">
+        <label for="minus">-</label>
+        <input type="radio" id="multiply" name="drone" value="multiply">
+        <label for="multiply">*</label>
+        <input type="radio" id="divide" name="drone" value="divide">
+        <label for="divide">/</label><br>
+        <button id="myCalc" type="button">Calculate</button>
+        </div>
+        <div id="calcAnswer"></div>
+    
+
+        
+    
+
+<!-- ---------- forth Parallax Image with Size------------------ -->
+<div class="bgimg-2 w3-display-container w3-opacity-min">
+    <div class="w3-display-middle">
+        <span class="w3-xxlarge w3-text-white w3-wide">Canadian Taxes</span>
+    </div>
+</div>
+
+<div id="taxDiv"></div>
+Determine what you owe =>
+
+Income:<input id="incomeTax" type="text/number"> 
+<button id="taxButton" type="button">Calculate taxes</button>
+<!-- Tax Bracket: <output id="bracket"></output> -->
+<!-- Owe the Gov: <output id="taxes"></output> -->
+<!-- is a <span id="idNumberSize">unknown</span> number?
+<p id="idNumberSizexx"></p> -->
 
     <!-- Footer -->
     <footer class="w3-center w3-black w3-padding-64 w3-opacity w3-hover-opacity-off">
