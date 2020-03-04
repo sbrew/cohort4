@@ -1,43 +1,33 @@
 import functions from './functions.js';
 import calcFunctions from './calc.js';
 import taxFunctions from './taxes.js';
+import arrayFunctions from './arrays.js';
 
 // **********
 //
 // Add the event listeners
-// 
 
+
+// Size
 idNumber.addEventListener('change', (() => {
     idNumberSize.textContent = functions.size(idNumber.value);
 }));
-// calculator
-document.getElementById('myCalc').onclick = (function () {
-    // console.log(document.getElementsByName("drone")) used to figure out which array was highlighted
-    let num1 = Number(document.getElementById('number1').value)
-    let num2 = Number(document.getElementById('number2').value)
-    //let radiobutton = document.getElementsByClassName("drones")
-
+// Calculator
+myCalc.addEventListener("click", function(){
     if (document.getElementsByName("drone")[0].checked) {
-        calcFunctions.addition(num1, num2);
+        calcAnswer.innerHTML = calcFunctions.addition(Number(number1.value), Number(number2.value));
     } else if (document.getElementsByName("drone")[1].checked) {
-        calcFunctions.subtraction(num1, num2);
+        calcAnswer.textContent = calcFunctions.subtraction(parseInt(number1.value), parseInt(number2.value));
     }  else if (document.getElementsByName("drone")[2].checked) {
-        calcFunctions.multiply(num1, num2);
+        calcAnswer.textContent = calcFunctions.multiply(parseInt(number1.value), parseInt(number2.value));
     } else if (document.getElementsByName("drone")[3].checked) {
-        calcFunctions.divide(num1, num2);
+        calcAnswer.textContent = calcFunctions.divide(parseInt(number1.value), parseInt(number2.value));
     }
-
-
 });
-
-
-
 
 // taxes
-document.getElementById('taxButton').onclick = (function () {
-    let grossIncome = parseInt(document.getElementById("incomeTax").value);
-    taxFunctions.taxCalc(grossIncome);
+taxButton.addEventListener("click", function(){
+    taxDiv.innerHTML = "$" + taxFunctions.taxCalc(incomeTax.value);
 });
-
 
 

@@ -2,27 +2,19 @@
 const calcFunctions = {
 
     addition: (num1, num2) => {
-        let calculated = num1 + num2;
-        calculate(calculated)
-        return calculate;
+        return num1 + num2;
     },
 
     subtraction: (num1, num2) => {
-        let calculated = num1 - num2;
-        calculate(calculated)
-        return calculate;
+        return num1 - num2;
     },
 
     multiply: (num1, num2) =>{
-        let calculated = num1 * num2;
-        calculate(calculated)
-        return calculate;
+        return num1 * num2;
     },
 
     divide: (num1, num2) =>{
-        let calculated = num1 / num2;
-        calculate(calculated)
-        return calculate;
+        return num1 / num2;
     }
         
 
@@ -30,7 +22,3 @@ const calcFunctions = {
 
 export default calcFunctions;
 
-function calculate(calculated) {
-    document.getElementById("calcAnswer").innerHTML=calculated
-    return null;
-}
