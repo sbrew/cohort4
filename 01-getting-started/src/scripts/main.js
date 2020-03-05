@@ -14,20 +14,23 @@ idNumber.addEventListener('change', (() => {
 }));
 // Calculator
 myCalc.addEventListener("click", function(){
-    if (document.getElementsByName("drone")[0].checked) {
+    if (add.checked) {
         calcAnswer.innerHTML = calcFunctions.addition(Number(number1.value), Number(number2.value));
-    } else if (document.getElementsByName("drone")[1].checked) {
+    } else if (minus.checked) {
         calcAnswer.textContent = calcFunctions.subtraction(parseInt(number1.value), parseInt(number2.value));
-    }  else if (document.getElementsByName("drone")[2].checked) {
+    }  else if (multiply.checked) {
         calcAnswer.textContent = calcFunctions.multiply(parseInt(number1.value), parseInt(number2.value));
-    } else if (document.getElementsByName("drone")[3].checked) {
+    } else if (divide.checked) {
         calcAnswer.textContent = calcFunctions.divide(parseInt(number1.value), parseInt(number2.value));
     }
 });
+
+//divide.checked is the equivalent of document.getElementsByName("drone")[3].checked
 
 // taxes
 taxButton.addEventListener("click", function(){
     taxDiv.innerHTML = "$" + taxFunctions.taxCalc(incomeTax.value);
 });
 
+//Arrays
 
