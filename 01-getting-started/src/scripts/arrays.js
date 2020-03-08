@@ -1,19 +1,16 @@
-
-let arr = [];
-
 const arrayFunctions = {
 
-  addArray: (num) => {
+  addArray: (arr, num) => {
     arr.push(num);
     return arr;
   },
 
-  showArray: (num) => {
+  showArray: (arr) => {
     let arrDisplay = arr.join();
     return arrDisplay;
   },
 
-  totalArray: (num) => {
+  totalArray: (arr) => {
     let sum = 0;
     for (var i = 0; i < arr.length; i++) {
       sum = sum + arr[i];
@@ -21,13 +18,10 @@ const arrayFunctions = {
     return sum;
   },
 
-  clearArray: (num) => {
+  clearArray: (arr) => {
     arr = [];
     return arr;
   }
 };
-
-
-
 
 export default arrayFunctions;

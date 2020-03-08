@@ -24,13 +24,15 @@
     <!-- Navbar (sit on top) -->
     <div class="w3-top">
         <div class="w3-bar" id="myNavbar">
-            <a class="w3-bar-item w3-button w3-hover-black w3-hide-medium w3-hide-large w3-right" href="javascript:void(0);" onclick="toggleFunction()" title="Toggle Navigation Menu">
+            <a class="w3-bar-item w3-button w3-hover-black w3-hide-medium w3-hide-large w3-right"
+                href="javascript:void(0);" onclick="toggleFunction()" title="Toggle Navigation Menu">
                 <i class="fa fa-bars"></i>
             </a>
             <a href="#home" class="w3-bar-item w3-button">HOME</a>
             <a href="#about" class="w3-bar-item w3-button w3-hide-small"><i class="fa fa-user"></i> ABOUT</a>
             <a href="#idSize" class="w3-bar-item w3-button w3-hide-small"><i class="fa fa-th"></i> SIZE</a>
-            <a href="https://www.evolveu.ca" class="w3-bar-item w3-button w3-hide-small" target="_blank"><i class="fa fa-envelope"></i> CONTACT</a>
+            <a href="https://www.evolveu.ca" class="w3-bar-item w3-button w3-hide-small" target="_blank"><i
+                    class="fa fa-envelope"></i> CONTACT</a>
             <a href="#" class="w3-bar-item w3-button w3-hide-small w3-right w3-hover-red">
                 <i class="fa fa-search"></i>
             </a>
@@ -40,7 +42,8 @@
         <div id="navDemo" class="w3-bar-block w3-white w3-hide w3-hide-large w3-hide-medium">
             <a href="#about" class="w3-bar-item w3-button" onclick="toggleFunction()">ABOUT</a>
             <a href="#idSize" class="w3-bar-item w3-button" onclick="toggleFunction()">SIZE</a>
-            <a href="https://www.evolveu.ca" class="w3-bar-item w3-button" onclick="toggleFunction()" target="_blank">CONTACT</a>
+            <a href="https://www.evolveu.ca" class="w3-bar-item w3-button" onclick="toggleFunction()"
+                target="_blank">CONTACT</a>
             <a href="#" class="w3-bar-item w3-button">SEARCH</a>
         </div>
     </div>
@@ -60,23 +63,36 @@
     <div class="w3-content w3-container w3-padding-64 info-box" id="about">
         <h3 class="w3-center">ABOUT THE TOOLS & PRACTICES</h3>
         <p>
-            Here, we describe at a high level the basic tools of the trade and best practices in using the tools. We are a little nervous about using the term “Best Practices”. There are many great tools and practices out there and “Best Practices” is a matter of
-            opinion and are constantly changing. If you understand these tools and these practices, you are in a great position to continue your learning and finding better practices and better tools. You are just beginning a journey of learning that
+            Here, we describe at a high level the basic tools of the trade and best practices in using the tools. We are
+            a little nervous about using the term “Best Practices”. There are many great tools and practices out there
+            and “Best Practices” is a matter of
+            opinion and are constantly changing. If you understand these tools and these practices, you are in a great
+            position to continue your learning and finding better practices and better tools. You are just beginning a
+            journey of learning that
             will last as long as your professional development career.
         </p>
 
         <ol>
-            <li><b>Editor -</b> Where we spend all our time building. We suggest one of the two: <a href="https://code.visualstudio.com/" target="_blank">Visual Studio Code</a> or <a href="https://www.sublimetext.com/" target="_blank">Sublime Text</a>.
+            <li><b>Editor -</b> Where we spend all our time building. We suggest one of the two: <a
+                    href="https://code.visualstudio.com/" target="_blank">Visual Studio Code</a> or <a
+                    href="https://www.sublimetext.com/" target="_blank">Sublime Text</a>.
 
             </li>
-            <li><b>Source Code Management -</b> According to <a href="https://en.wikipedia.org/wiki/Git" target="_blank">Wikipedia</a> git is a distributed version-control system for tracking changes in source code during software development. It is designed
-                for coordinating work among programmers, and it can also be used to track changes in any set of files. Its goals include speed, data integrity, and support for distributed, non-linear workflows.
-                <p>There is a tool <a href="https://git-scm.com/" target="_blank">git</a> and a development platform called <a href="https://github.com" target="_blank">GitHub</a>. We will be using these extensively throughout the program.</p>
+            <li><b>Source Code Management -</b> According to <a href="https://en.wikipedia.org/wiki/Git"
+                    target="_blank">Wikipedia</a> git is a distributed version-control system for tracking changes in
+                source code during software development. It is designed
+                for coordinating work among programmers, and it can also be used to track changes in any set of files.
+                Its goals include speed, data integrity, and support for distributed, non-linear workflows.
+                <p>There is a tool <a href="https://git-scm.com/" target="_blank">git</a> and a development platform
+                    called <a href="https://github.com" target="_blank">GitHub</a>. We will be using these extensively
+                    throughout the program.</p>
             </li>
             <li><b>Code Organization -</b> How do we organize a project? How do we structure our files? </li>
-            <li><b>Modular Design</b> How do we structure our code such that it is easy to read, update, test, and maintain?
+            <li><b>Modular Design</b> How do we structure our code such that it is easy to read, update, test, and
+                maintain?
             </li>
-            <li><b>Developer Tools for Test Driven Development -</b> <a href="https://jestjs.io">Jest</a> is a delightful JavaScript Testing Framework with a focus on simplicity.</li>
+            <li><b>Developer Tools for Test Driven Development -</b> <a href="https://jestjs.io">Jest</a> is a
+                delightful JavaScript Testing Framework with a focus on simplicity.</li>
         </ol>
 
     </div>
@@ -103,15 +119,15 @@
             <span class="w3-xxlarge w3-text-white w3-wide">Fancy Calculator</span>
         </div>
     </div>
-    <script src="calcScript.js" defer></script> 
-      <!--  using defer to make sure the entire page loads first
+    <script src="calcScript.js" defer></script>
+    <!--  using defer to make sure the entire page loads first
         step below -- wraps the calculator so we can make a grid
          output div is for area to place final answer
         the operands are for showing number being enter and number already entered -->
-    <div class="calculator-grid"> 
+    <div class="calculator-grid">
         <div class="output">
             <div data-previous-operand class="previous-operand"></div>
-            <div data-current-operand class="current-operand"></div> 
+            <div data-current-operand class="current-operand"></div>
         </div>
         <button data-all-clear class="span-two">AC</button>
         <button data-delete>DEL</button>
@@ -135,7 +151,7 @@
         <button data-equals class="span-two">=</button>
     </div>
 
-    
+
     <!-- ---------- Second Parallax Image with Size------------------ -->
 
     <div class="bgimg-2 w3-display-container w3-opacity-min">
@@ -143,8 +159,8 @@
             <span class="w3-xxlarge w3-text-white w3-wide">My Calculator</span>
         </div>
     </div>
-   
-        <div id="calcDiv" class="calc-grid">
+
+    <div id="calcDiv" class="calc-grid">
         Value 1: <input id="number1" type="text">
         Value 2: <input id="number2" type="text"><br>
         <input type="radio" id="add" name="drone" value="add">
@@ -156,46 +172,61 @@
         <input type="radio" id="divide" name="drone" value="divide">
         <label for="divide">/</label><br>
         <button id="myCalc" type="button">Calculate</button>
+    </div>
+    <div id="calcAnswer"></div>
+
+
+
+
+
+    <!-- ---------- forth Parallax Image with Size------------------ -->
+    <div class="bgimg-2 w3-display-container w3-opacity-min">
+        <div class="w3-display-middle">
+            <span class="w3-xxlarge w3-text-white w3-wide">Canadian Taxes</span>
         </div>
-        <div id="calcAnswer"></div>
-    
-
-        
-    
-
-<!-- ---------- forth Parallax Image with Size------------------ -->
-<div class="bgimg-2 w3-display-container w3-opacity-min">
-    <div class="w3-display-middle">
-        <span class="w3-xxlarge w3-text-white w3-wide">Canadian Taxes</span>
     </div>
-</div>
 
-<!-- <div id="taxDiv"></div> -->
-Determine what you owe =>
+    <!-- <div id="taxDiv"></div> -->
+    Determine what you owe =>
 
-Income:<input id="incomeTax" type="text/number"> 
-<button id="taxButton" type="button">Calculate taxes</button><br>
-<!-- Tax Bracket: <output id="bracket"></output> -->
-Owe the Gov:<div id="taxDiv"></div>
+    Income:<input id="incomeTax" type="text/number">
+    <button id="taxButton" type="button">Calculate taxes</button><br>
+    <!-- Tax Bracket: <output id="bracket"></output> -->
+    Owe the Gov:<div id="taxDiv"></div>
 
-<!-- ---------- Arrays------------------ -->
-<div class="bgimg-2 w3-display-container w3-opacity-min">
-    <div class="w3-display-middle">
-        <span class="w3-xxlarge w3-text-white w3-wide">Arrays</span>
+    <!-- ---------- Arrays------------------ -->
+    <div class="bgimg-2 w3-display-container w3-opacity-min">
+        <div class="w3-display-middle">
+            <span class="w3-xxlarge w3-text-white w3-wide">Arrays</span>
+        </div>
     </div>
-</div>
 
 
-<div id="arrayWork">
-<h1>Working with Arrays</h1>
-<input id="arrayInput"><br>
-<button id="addArr">add</button>
-<button id="showArr">show</button>
-<button id='sumArr'>total</button>
-<button id='clearArr'>clear</button>
-    <h3>Message Area</h3>
-    <p id="messageArea"></p>
-</div>
+    <div id="arrayWork">
+        <h1>Working with Arrays</h1>
+        <input id="arrayInput"><br>
+        <button id="addArr">add</button>
+        <button id="showArr">show</button>
+        <button id='sumArr'>total</button>
+        <button id='clearArr'>clear</button>
+        <h3>Message Area</h3>
+        <p id="messageArea"></p>
+    </div>
+
+
+    <!-- ---------- Dictionary------------------ -->
+    <div class="bgimg-2 w3-display-container w3-opacity-min">
+        <div class="w3-display-middle">
+            <span class="w3-xxlarge w3-text-white w3-wide">Arrays</span>
+        </div>
+    </div>
+    <div id="dictionaryWork">
+        <h3>Working with Dictionaries</h3>
+        <input id="itemLookUp">
+        <button id="lookUp">Lookup</button>
+        <h4>MessageArea</h4>
+        <p id="dictionaryMessage"></p>
+    </div>
 
 
     <!-- Footer -->
@@ -209,7 +240,8 @@ Owe the Gov:<div id="taxDiv"></div>
             <i class="fa fa-twitter w3-hover-opacity"></i>
             <i class="fa fa-linkedin w3-hover-opacity"></i>
         </div>
-        <p>Powered by <a href="https://www.w3schools.com/w3css/default.asp" title="W3.CSS" target="_blank" class="w3-hover-text-green">w3.css</a></p>
+        <p>Powered by <a href="https://www.w3schools.com/w3css/default.asp" title="W3.CSS" target="_blank"
+                class="w3-hover-text-green">w3.css</a></p>
     </footer>
 
 
@@ -217,7 +249,7 @@ Owe the Gov:<div id="taxDiv"></div>
 
     <script>
         // Change style of navbar on scroll
-        window.onscroll = function() {
+        window.onscroll = function () {
             myFunction()
         };
 
