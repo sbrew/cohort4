@@ -34,3 +34,26 @@ taxButton.addEventListener("click", function(){
 
 //Arrays
 
+addArr.addEventListener('click', function(){
+    // if(arrayInput === NaN || arrayInput === String){
+    //     message.innerHTML = "The input is not a valid number";}
+    arrayFunctions.addArray(Number(arrayInput.value));
+    // messageArea.innerHTML = "The number has been added to the array";
+    // console.log(arrayFunctions.addArray(Number(arrayInput.value)));
+    
+});
+
+
+// try array.filter(num => num === Number) to only allow numbers into array
+
+showArr.addEventListener('click', function(){
+    messageArea.innerHTML = arrayFunctions.showArray(arrayInput.value);
+});
+
+sumArr.addEventListener('click', function(){
+    messageArea.innerHTML = arrayFunctions.totalArray(arrayInput.value);
+});
+
+clearArr.addEventListener('click', function(){
+    messageArea.innerHTML = arrayFunctions.clearArray(arrayInput.value);
+});
