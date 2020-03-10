@@ -11,6 +11,8 @@ const arrayFunctions = {
   },
 
   totalArray: (arr) => {
+    // can use reduce mthod, its slightly more difficult as it is 
+    // a call back function we will get to that later
     let sum = 0;
     for (var i = 0; i < arr.length; i++) {
       sum = sum + arr[i];
@@ -22,6 +24,12 @@ const arrayFunctions = {
     arr = [];
     return arr;
   }
+
+
+  
 };
+
+
+
 
 export default arrayFunctions;

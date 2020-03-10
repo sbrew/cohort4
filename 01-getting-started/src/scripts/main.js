@@ -29,7 +29,8 @@ myCalc.addEventListener("click", function () {
 //divide.checked is the equivalent of document.getElementsByName("drone")[3].checked
 
 // taxes
-taxButton.addEventListener("click", function () {
+taxButton
+("click", function () {
     taxDiv.innerHTML = "$" + taxFunctions.taxCalc(incomeTax.value);
 });
 
@@ -38,10 +39,14 @@ taxButton.addEventListener("click", function () {
 let myArray = [];
 
 addArr.addEventListener('click', function () {
-    // if(arrayInput === NaN || arrayInput === String){
-    //     message.innerHTML = "The input is not a valid number";}
-    myArray = arrayFunctions.addArray(myArray, Number(arrayInput.value));
-    messageArea.innerHTML = "The number has been added to the array";
+    // console.log(isNaN(Number(arrayInput.value)))
+    if (isNaN((arrayInput.value))) {
+        messageArea.innerHTML = "The input is not a valid number";
+    }
+    else {
+        myArray = arrayFunctions.addArray(myArray, Number(arrayInput.value));
+        messageArea.innerHTML = "The number has been added to the array";
+    }
 
 
 });
@@ -58,7 +63,9 @@ sumArr.addEventListener('click', function () {
 });
 
 clearArr.addEventListener('click', function () {
-    messageArea.innerHTML = arrayFunctions.clearArray(myArray, Number(arrayInput.value));
+    myArray.length = 0;
+    //remember to set the array length to 0 before clearing the elements in the array
+    messageArea.innerHTML = arrayFunctions.clearArray(myArray);
 });
 
 // Dictionary
