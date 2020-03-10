@@ -1,0 +1,28 @@
+/* body,
+h1 
+h2, 
+h3,
+h4,
+h5,
+h6 
+
+body
+
+html */
+
+
+.domBox{
+    border: 4px solid;
+    width: 200px;
+    padding: 10px;
+    margin: auto;
+    /* align-content: center;
+    justify-content: center;   */
+    text-align: center;
+}
+
+li {
+    list-style-position: inside;
+    text-align: left;
+    text-indent: 10px;
+}
