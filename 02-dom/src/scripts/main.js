@@ -1,6 +1,6 @@
 let myList = document.querySelector('ol');
 // div event listener
-domBox.addEventListener('click', function (event) {
+boxDom.addEventListener('click', function (event) {
     console.log(event.target);
 });
 

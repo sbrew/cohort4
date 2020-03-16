@@ -10,19 +10,38 @@ body
 
 html */
 
+.panel{
+    display: grid;
+    grid-template-columns: auto auto auto auto;
+    grid-gap: 10px;
+}
 
 .domBox{
     border: 4px solid;
     width: 200px;
     padding: 10px;
     margin: auto;
+    text-align: center;
     /* align-content: center;
     justify-content: center;   */
-    text-align: center;
 }
 
 li {
     list-style-position: inside;
     text-align: left;
     text-indent: 10px;
+}
+
+.clCard {
+    /* Add shadows to create the "card" effect */
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+    transition: 0.3s;
+    height: 100px;
+    width: 150px;
+    padding: 10px;
+}
+/* On mouse-over, add a deeper shadow */
+
+.clCard :empty {
+    box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.2);
 }
