@@ -29,8 +29,7 @@ myCalc.addEventListener("click", function () {
 //divide.checked is the equivalent of document.getElementsByName("drone")[3].checked
 
 // taxes
-taxButton
-("click", function () {
+taxButton.addEventListener("click", function () {
     taxDiv.innerHTML = "$" + taxFunctions.taxCalc(incomeTax.value);
 });
 
