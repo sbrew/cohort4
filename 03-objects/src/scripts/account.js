@@ -31,30 +31,50 @@ class AccountController {
         let index = this.accountArray.findIndex(accFinder => accFinder.accountName === accObj);
         this.accountArray.splice(index, 1);
     }
+
+    totalCash() {
+        // can use reduce mthod, its slightly more difficult as it is 
+        // a call back function we will get to that later
+        let sum = 0;
+        for (var i = 0; i < this.accountArray.length; i++) {
+            sum = sum + this.accountArray[i].initialBalance;
+        }
+        return sum;
+    }
+
+    highestAccount() {
+
+    }
+
+
 };
 
 const functions = {
 
-    buildDomCards(text) {
+    buildDomCards(node, text) {
         const div = document.createElement('div');
-        div.setAttribute('class', 'clCard'); //applying premade css to new divs
+        div.setAttribute('class', 'clCard');//applying premade css to new divs
+        div.setAttribute('id', text.accountName);
         div.appendChild(document.createTextNode(text.accountName));
-        div.appendChild(document.createTextNode(text.initialBalance));
+        // div.appendChild(document.createTextNode(text.initialBalance));
+
+        //creating a ptag for balance to easily update balances with deposits and withdraws
+        let pTag = document.createElement('P');
+        //using `ptag ${text.accountName}` to associate specifc ids while not creating conflict with other id tags
+        pTag.setAttribute('id', `ptag ${text.accountName}`);
+        pTag.appendChild(document.createTextNode(text.initialBalance));
+        div.appendChild(pTag);
 
         const delBut = document.createElement('button');
         delBut.appendChild(document.createTextNode("Close Account"));
         div.appendChild(delBut);
-
-        return div;
-    },
-
-    addToAccounts(node, text) {
-        const div = functions.buildDomCards(text);
         node.parentElement.insertBefore(div, node);
+        return div;
     },
 
     dropDownOptions(text) {
         const options = document.createElement('OPTION');
+        options.setAttribute('id', text.accountName);
         options.appendChild(document.createTextNode(text.accountName));
         return options;
     },
@@ -67,26 +87,7 @@ const functions = {
 
     deleteDiv(node) {
         node.remove();
-    }
+    },
 };
-
-
-
-
-// totalArray: (arr) => {
-//     // can use reduce mthod, its slightly more difficult as it is 
-//     // a call back function we will get to that later
-//     let sum = 0;
-//     for (var i = 0; i < arr.length; i++) {
-//       sum = sum + arr[i];
-//     }
-//     return sum;
-//   },
-// showArray: (arr) => {
-//     let arrDisplay = arr.join();
-//     return arrDisplay;
-//   },
-
-
 
 export default { Account, AccountController, functions };
