@@ -28,21 +28,18 @@ test('does the withdraw function work', () => {
 
 test('does it add to the accounts', () => {
     expect(controller.addAccount(13)).toStrictEqual([13]);
-    expect(controller.addAccount(25)).toStrictEqual([13,25]);
+    expect(controller.addAccount(25)).toStrictEqual([13, 25]);
 });
 
-let acct3=(new ooStuff.Account("savings", 1000));
-let acctMng=new ooStuff.AccountController();
+let acct3 = (new ooStuff.Account("savings", 1000));
+let acctMng = new ooStuff.AccountController();
 
 test('does it remove accounts from the array', () => {
-    console.log(acct3);
     acctMng.addAccount(acct1);
     acctMng.addAccount(acct3);
-    console.log(acctMng);
     acctMng.removeAccount("checking");
     expect(acctMng.accountArray).toEqual([{ accountName: 'savings', initialBalance: 1000 }]);
     acctMng.removeAccount("savings");
-    console.log(acctMng);
     expect(acctMng.accountArray).toEqual([]);
 });
 
@@ -51,6 +48,22 @@ test('whats the total cash money', () => {
     acctMng.addAccount(acct3);
     expect(acctMng.totalCash()).toStrictEqual(1350);
 });
+
+let acct4 = (new ooStuff.Account("credit", 6000));
+
+test('which account has the most', () => {
+    expect(acctMng.biggestAccount()).toEqual("savings,1000");
+    acctMng.addAccount(acct4);
+    expect(acctMng.biggestAccount()).toEqual("credit,6000");
+});
+
+test('which account has the least', () => {
+    expect(acctMng.smallestAccount()).toEqual("checking,350");
+    acctMng.removeAccount("checking");
+    acctMng.removeAccount("savings");
+    expect(acctMng.smallestAccount()).toEqual("credit,6000");
+});
+
 
 
 

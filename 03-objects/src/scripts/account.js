@@ -42,11 +42,16 @@ class AccountController {
         return sum;
     }
 
-    highestAccount() {
-
+    biggestAccount() {
+        let string = "";
+        return string += `${Object.values(this.accountArray.reduce((a, b) => b.initialBalance > a.initialBalance ? b : a))}`;
     }
 
+    smallestAccount() {
+        let string = "";
+        return string += `${Object.values(this.accountArray.reduce((a, b) => b.initialBalance < a.initialBalance ? b : a))}`;
 
+    }
 };
 
 const functions = {

@@ -3,9 +3,9 @@ import ooStuff from './account.js';
 let AccountController = new ooStuff.AccountController();
 let i = 0;
 
-// window.addEventListener('click', function (event) {
-//     console.log(event.target);
-// });
+window.addEventListener('click', function (event) {
+    console.log(event.target);
+});
 
 createAccount.addEventListener('click', function () {
     if (accountName.value.length > 0 && initialDeposit.value.length > 0) {
@@ -17,11 +17,6 @@ createAccount.addEventListener('click', function () {
         clearFields();
     }
 });
-
-// balance.addEventListener('click', function () {
-//     console.log(acct1.displayBalance());
-//     showBalance.textContent = `Your current balance is $${acct1.displayBalance()}`;
-// });
 
 deposit.addEventListener("click", function () {
     if (lengthCheck() > 0) {
@@ -42,6 +37,7 @@ withdraw.addEventListener("click", function () {
         clearFields();
     }
 });
+
 addEventListener("click", function () {
     if (event.target.textContent === 'Close Account') {
         AccountController.removeAccount(event.target.parentElement.id);
@@ -65,6 +61,13 @@ sumArr.addEventListener('click', function () {
     messageArea.innerText = `Your current balance is $${AccountController.totalCash()}`;
 });
 
+lowest.addEventListener('click', function () {
+    messageArea.innerText = `Your lowest balance account is ${AccountController.smallestAccount()}`;
+});
+
+biggest.addEventListener('click', function () {
+    messageArea.innerText = `Your highest balance account is ${AccountController.biggestAccount()}`;
+});
 
 function clearFields() {
     accountName.value = "";
