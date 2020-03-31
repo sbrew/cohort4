@@ -1,19 +1,19 @@
 class Account {
-    constructor(accountName, initialBalance) {
+    constructor(accountName, balance) {
         this.accountName = accountName;
-        this.initialBalance = initialBalance;
+        this.balance = balance;
     }
 
     deposit(depAmount) {
-        this.initialBalance = (((this.initialBalance * 100) + (depAmount * 100)) / 100);
+        this.balance = (((this.balance * 100) + (depAmount * 100)) / 100);
     }
 
     withdraw(withAmount) {
-        this.initialBalance = (((this.initialBalance * 100) - (withAmount * 100)) / 100);
+        this.balance = (((this.balance * 100) - (withAmount * 100)) / 100);
     }
 
-    balance() {
-        return this.initialBalance;
+    getBalance() {
+        return this.balance;
     }
 };
 
@@ -22,9 +22,24 @@ class AccountController {
         this.accountArray = [];
     }
 
-    addAccount(accObj) {
-        this.accountArray.push(accObj);
+    addAccount(accountName, balance) {
+        this.accountArray.push(new Account(accountName, balance));
         return this.accountArray;
+    }
+  
+    getBalance(name){
+        let index = this.accountArray.findIndex(accFinder => accFinder.accountName === name);
+        return this.accountArray[index].getBalance();
+    }
+
+    accountDeposit(name, amount) {
+        let index = this.accountArray.findIndex(accFinder => accFinder.accountName === name);
+        this.accountArray[index].deposit(amount);
+    }
+
+    accountWithdraw(name, amount) {
+        let index = this.accountArray.findIndex(accFinder => accFinder.accountName === name);
+        this.accountArray[index].withdraw(amount);
     }
 
     removeAccount(accObj) {
@@ -33,24 +48,21 @@ class AccountController {
     }
 
     totalCash() {
-        // can use reduce mthod, its slightly more difficult as it is 
-        // a call back function we will get to that later
         let sum = 0;
         for (var i = 0; i < this.accountArray.length; i++) {
-            sum = sum + this.accountArray[i].initialBalance;
+            sum = sum + this.accountArray[i].balance;
         }
         return sum;
     }
 
     biggestAccount() {
         let string = "";
-        return string += `${Object.values(this.accountArray.reduce((a, b) => b.initialBalance > a.initialBalance ? b : a))}`;
+        return string += `${Object.values(this.accountArray.reduce((a, b) => b.balance > a.balance ? b : a))}`;
     }
 
     smallestAccount() {
         let string = "";
-        return string += `${Object.values(this.accountArray.reduce((a, b) => b.initialBalance < a.initialBalance ? b : a))}`;
-
+        return string += `${Object.values(this.accountArray.reduce((a, b) => b.balance < a.balance ? b : a))}`;
     }
 };
 
@@ -61,13 +73,11 @@ const functions = {
         div.setAttribute('class', 'clCard');//applying premade css to new divs
         div.setAttribute('id', text.accountName);
         div.appendChild(document.createTextNode(text.accountName));
-        // div.appendChild(document.createTextNode(text.initialBalance));
-
         //creating a ptag for balance to easily update balances with deposits and withdraws
         let pTag = document.createElement('P');
         //using `ptag ${text.accountName}` to associate specifc ids while not creating conflict with other id tags
         pTag.setAttribute('id', `ptag ${text.accountName}`);
-        pTag.appendChild(document.createTextNode(text.initialBalance));
+        pTag.appendChild(document.createTextNode(text.balance));
         div.appendChild(pTag);
 
         const delBut = document.createElement('button');

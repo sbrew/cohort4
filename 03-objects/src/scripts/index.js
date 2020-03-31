@@ -3,16 +3,12 @@ import ooStuff from './account.js';
 let AccountController = new ooStuff.AccountController();
 let i = 0;
 
-window.addEventListener('click', function (event) {
-    console.log(event.target);
-});
-
 createAccount.addEventListener('click', function () {
     if (accountName.value.length > 0 && initialDeposit.value.length > 0) {
-        AccountController.addAccount(new ooStuff.Account(accountName.value, Number(initialDeposit.value)));
-        ooStuff.functions.buildDomCards(document.getElementById("showBalance"), (AccountController.accountArray[i]));
-        ooStuff.functions.attachToDD(document.getElementById("dropdown"), (AccountController.accountArray[i]));
-        console.log(AccountController);
+        // AccountController.addAccount(new ooStuff.Account(accountName.value, Number(initialDeposit.value)));
+        AccountController.addAccount(accountName.value, Number(initialDeposit.value));
+        ooStuff.functions.buildDomCards(showBalanceID, (AccountController.accountArray[i]));
+        ooStuff.functions.attachToDD(dropdownID, (AccountController.accountArray[i]));
         i++;
         clearFields();
     }
@@ -20,9 +16,7 @@ createAccount.addEventListener('click', function () {
 
 deposit.addEventListener("click", function () {
     if (lengthCheck() > 0) {
-        update.value = Number(update.value).toFixed(2);
-        let index = AccountController.accountArray.findIndex(accFinder => accFinder.accountName === dropdown.value);
-        AccountController.accountArray[index].deposit(Number(update.value));
+        AccountController.accountDeposit(dropdownID.value,Number(update.value).toFixed(2));
         updateBankAccounts();
         clearFields();
     }
@@ -30,9 +24,7 @@ deposit.addEventListener("click", function () {
 
 withdraw.addEventListener("click", function () {
     if (lengthCheck() > 0) {
-        update.value = Number(update.value).toFixed(2);
-        let index = AccountController.accountArray.findIndex(accFinder => accFinder.accountName === dropdown.value);
-        AccountController.accountArray[index].withdraw(Number(update.value));
+        AccountController.accountWithdraw(dropdownID.value,Number(update.value).toFixed(2));
         updateBankAccounts();
         clearFields();
     }
@@ -46,13 +38,13 @@ addEventListener("click", function () {
         let dd = event.target.parentElement.id;
         // found the id of div card to relate with the dropdown
         let counter = 0;
-        for (let q = 0; q < dropdown.length; q++) {
+        for (let q = 0; q < dropdownID.length; q++) {
             // looping through the dropdown until the id matches the dropdown
-            if (dd === dropdown[q].id) {
+            if (dd === dropdownID[q].id) {
                 counter = q;
             }
         };
-        dropdown.removeChild(dropdown[counter]);
+        dropdownID.removeChild(dropdownID[counter]);
         return i--;
     }
 });
@@ -73,7 +65,7 @@ function clearFields() {
     accountName.value = "";
     initialDeposit.value = "";
     update.value = "";
-    dropdown.value= "Select";
+    dropdownID.value= "Select";
 };
 
 function lengthCheck() {
@@ -81,17 +73,16 @@ function lengthCheck() {
 };
 
 function updateBankAccounts() {
-    let index = AccountController.accountArray.findIndex(accFinder => accFinder.accountName === dropdown.value);
+    let index = AccountController.accountArray.findIndex(accFinder => accFinder.accountName === dropdownID.value);
     let updatedDisplayBalance = AccountController.accountArray[index].accountName;
     let counter = 0;
-    for (let q = 0; q < dropdown.length; q++) {
+    for (let q = 0; q < dropdownID.length; q++) {
         // looping through the dropdown until the accountName id matches the dropdown id
-        if (updatedDisplayBalance === dropdown[q].id) {
+        if (updatedDisplayBalance === dropdownID[q].id) {
             counter = q;
         }
     };
-    if (updatedDisplayBalance === dropdown[counter].value) {
-        document.getElementById(`ptag ${updatedDisplayBalance}`).textContent = AccountController.accountArray[index].initialBalance
+    if (updatedDisplayBalance === dropdownID[counter].value) {
+        document.getElementById(`ptag ${updatedDisplayBalance}`).textContent = AccountController.accountArray[index].balance
     }
 };
-
