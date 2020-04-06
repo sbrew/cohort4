@@ -8,7 +8,7 @@ test('does the class work', () => {
 test('does the constructor work', () => {
     let acct1 = new ooStuff.Account("checking", 100);
     expect(acct1.accountName).toBe("checking");
-    expect(acct1.initialBalance).toBe(100);
+    expect(acct1.balance).toBe(100);
 });
 
 test('does the deposit function work', () => {
@@ -29,8 +29,8 @@ test('does the withdraw function work', () => {
 
 test('does it add to the accounts', () => {
     const controller = new ooStuff.AccountController();
-    expect(controller.addAccount("checking", 100)).toEqual([{ accountName: 'checking', initialBalance: 100 }]);
-    expect(controller.addAccount("savings", 1000)).toEqual([{ accountName: 'checking', initialBalance: 100 }, { accountName: 'savings', initialBalance: 1000 }]);
+    expect(controller.addAccount("checking", 100)).toEqual([{ accountName: 'checking', balance: 100 }]);
+    expect(controller.addAccount("savings", 1000)).toEqual([{ accountName: 'checking', balance: 100 }, { accountName: 'savings', balance: 1000 }]);
 });
 
 test('does it remove accounts from the array', () => {
@@ -38,7 +38,7 @@ test('does it remove accounts from the array', () => {
     controller.addAccount("savings", 1000);
     controller.addAccount("checking", 100);
     controller.removeAccount("checking");
-    expect(controller.accountArray).toEqual([{ accountName: 'savings', initialBalance: 1000 }]);
+    expect(controller.accountArray).toEqual([{ accountName: 'savings', balance: 1000 }]);
     controller.removeAccount("savings");
     expect(controller.accountArray).toEqual([]);
 });
@@ -97,43 +97,3 @@ test('which account has the least', () => {
     controller.removeAccount("savings");
     expect(controller.smallestAccount()).toEqual("credit,6000");
 });
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-// // const text = "Some text";
-
-// // test('does the DOM function work?', () => {
-// //     console.log("We are in the tests");
-// //     let element = ooStuff.functions.buildDomCards(text);
-// //     expect(element).toBeTruthy();
-// // });
-
-
-// // test('does it Add to accounts?', () => {
-// //     let group = document.createElement('div');
-// //     let element = ooStuff.functions.buildDomCards('first insert');
-// //     group.appendChild(element);
-// //     expect(group.children.length).toBe(1);
-
-// //     const txt = 'Account undefined'
-// //     ooStuff.functions.addToAccounts(element, txt);
-// //     expect(group.children.length).toBe(2);
-// //     expect(group.children[0].textContent.substr(0, 17)).toBe(txt);
-// //     expect(group.children[1].textContent.substr(0, 17)).toBe("Account undefined");
-
-// // });

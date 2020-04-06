@@ -1,14 +1,18 @@
 import ooStuff from './account.js';
+import functions from './DOM.js';
 
 let AccountController = new ooStuff.AccountController();
 let i = 0;
 
+addEventListener('click' ,function () {
+    console.log(event.targt);
+});
+
 createAccount.addEventListener('click', function () {
     if (accountName.value.length > 0 && initialDeposit.value.length > 0) {
-        // AccountController.addAccount(new ooStuff.Account(accountName.value, Number(initialDeposit.value)));
         AccountController.addAccount(accountName.value, Number(initialDeposit.value));
-        ooStuff.functions.buildDomCards(showBalanceID, (AccountController.accountArray[i]));
-        ooStuff.functions.attachToDD(dropdownID, (AccountController.accountArray[i]));
+        functions.buildDomCards(showBalanceID, (AccountController.accountArray[i]));
+        functions.attachToDD(dropdownID, (AccountController.accountArray[i]));
         i++;
         clearFields();
     }
@@ -33,7 +37,7 @@ withdraw.addEventListener("click", function () {
 addEventListener("click", function () {
     if (event.target.textContent === 'Close Account') {
         AccountController.removeAccount(event.target.parentElement.id);
-        ooStuff.functions.deleteDiv(event.target.parentElement);
+        functions.deleteDiv(event.target.parentElement);
         // deleting items from drop down
         let dd = event.target.parentElement.id;
         // found the id of div card to relate with the dropdown
