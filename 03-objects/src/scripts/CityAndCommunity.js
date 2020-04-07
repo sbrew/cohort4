@@ -77,5 +77,4 @@ class Community {
     }
 };
 
-
 export default { City, Community };
