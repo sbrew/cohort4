@@ -19,17 +19,3 @@ WWC.addEventListener('click', function (event) {
     };
 });
 
-// document.body.addEventListener('click', function(event) {
-//    console.log("registered a click");
-// });
-
-
-// idNumber.addEventListener('change', (() => {
-//     idNumberSize.textContent = functions.size(idNumber.value);
-// showArr.addEventListener('click', function () {
-//     messageArea.innerHTML = arrayFunctions.showArray(myArray, Number(arrayInput.value));
-// });
-
-// sumArr.addEventListener('click', function () {
-//     messageArea.innerHTML = arrayFunctions.totalArray(myArray, Number(arrayInput.value));
-// });
