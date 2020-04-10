@@ -25,7 +25,7 @@ createCityID.addEventListener('click', async () => {
         domFuncs.addBefore(domBoxID, cityController.cityList[i]);
         document.getElementById(`${cityController.cityList[i].name}hemisphereDisplayID`).textContent = cityController.whichSphere(cityController.cityList[i].name);
         document.getElementById(`${cityController.cityList[i].name}citySizeID`).textContent = cityController.cityList[i].howBig();
-        await fetchFunctions.postData(url + "add", {name:"new", latitude:50, longitude:100, population:50000, key:"0"});
+        await fetchFunctions.postData(url + "add", {name:nameInputID.value, latitude:50, longitude:100, population:50000, key:key});
         i++;
         key++;
         clearFields();

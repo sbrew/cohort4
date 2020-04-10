@@ -1,4 +1,4 @@
-// import functions from './fetch.js'
+import functions from './fetch.js'
 
 class City {
 
