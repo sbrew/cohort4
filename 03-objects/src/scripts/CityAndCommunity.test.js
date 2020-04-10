@@ -1,4 +1,5 @@
 import cityStuff from './CityAndCommunity';
+import domFuncs from './CCDOM';
 
 test('does the class work', () => {
     let city = new cityStuff.City("Calgary", 51.0447, 114.0719, 1635000);
@@ -22,8 +23,8 @@ test('does the show func work', () => {
 
 test('are people moving in', () => {
     let city = new cityStuff.City("Calgary", 51.0447, 114.0719, 1635000);
-    city.movedIn(25000);
-    expect(city.population).toBe(1660000);
+    city.movedIn(300000);
+    expect(city.population).toBe(1935000);
     let city2 = new cityStuff.City("Vancouver", 49.2827, 123.1207, 675218);
     city2.movedIn(5000);
     expect(city2.population).toBe(680218);
@@ -77,7 +78,7 @@ test('which is the most northern city', () => {
     // controller.createCity("Pryp'yat'", "51.4045 N", 30.0542, 0);
 });
 
-test('which is the most northern city', () => {
+test('which is the most southern city', () => {
     const controller = new cityStuff.Community();
     controller.createCity("Pryp'yat'", 51.4045, 30.0542, 0);
     controller.createCity("Calgary", 51.0447, 114.0719, 1635000);
@@ -96,12 +97,70 @@ test('what is the gloabal population', () => {
     expect(controller.getPopulation()).toBe(7838668);
 });
 
+test('does it increase the population', () => {
+    const controller = new cityStuff.Community();
+    controller.createCity("Pryp'yat'", 51.4045, 30.0542, 0);
+    controller.createCity("Calgary", 51.0447, 114.0719, 1635000);
+    controller.increasePopulation("Pryp'yat'",1000);
+    expect(controller.cityList[0].currentPopulation()).toBe(1000);
+    controller.increasePopulation("Calgary",1000000);
+    expect(controller.cityList[1].currentPopulation()).toBe(2635000);
+});
+
+test('does it decrease the population', () => {
+    const controller = new cityStuff.Community();
+    controller.createCity("Calgary", 51.0447, 114.0719, 1635000);
+    controller.createCity("Pryp'yat'", 51.4045, 30.0542, 10000);
+    expect(controller.decreasePopulation("Calgary",200000)).toBe(1435000);
+    expect(controller.decreasePopulation("Pryp'yat'",10000)).toBe(0);
+    console.log("Chernobyl Meltdown!!!");
+});
+
 test('does it wipe the city from the planet', () => {
     const controller = new cityStuff.Community();
     controller.createCity("Pryp'yat'", 51.4045, 30.0542, 0);
     controller.createCity("Calgary", 51.0447, 114.0719, 1635000);
     controller.deleteCity("Pryp'yat'");
-    expect(controller.cityList).toEqual([{latitude: 51.0447, longitude: 114.0719, name: "Calgary", population: 1635000}]);
+    expect(controller.cityList).toEqual([{ latitude: 51.0447, longitude: 114.0719, name: "Calgary", population: 1635000 }]);
     controller.deleteCity("Calgary");
     expect(controller.cityList).toEqual([]);
+});
+
+test('does the DOM function work?', () => {
+    const controller = new cityStuff.Community();
+    controller.createCity("Pryp'yat'", 51.4045, 30.0542, 0);
+    controller.createCity("Calgary", 51.0447, 114.0719, 1635000);
+    const element = domFuncs.buildDomCards(controller.cityList[0]);
+    expect(element).toBeTruthy();
+});
+
+test('does it Add Before?', () => {
+    const controller = new cityStuff.Community();
+    controller.createCity("Pryp'yat'", 51.4045, 30.0542, 0);
+    controller.createCity("Calgary", 51.0447, 114.0719, 1635000);
+    const text = controller.cityList;
+    const group = document.createElement('div');
+    console.log(controller.cityList[1]);
+    const element = domFuncs.buildDomCards(text);
+    group.appendChild(element);
+    expect(group.children.length).toBe(1);
+    domFuncs.addBefore(element, controller.cityList[0]);
+    expect(group.children.length).toBe(2);
+    expect(group.children[0].textContent.substr(0, 30)).toBe("Pryp'yat'Latitude: 51.4045 Lon");
+    domFuncs.addBefore(element, controller.cityList[1]);
+    expect(group.children[1].textContent.substr(0, 12)).toBe("CalgaryLatit");
+});
+
+test('does it delDiv?', () => {
+    const group = document.createElement('div');
+    const element = domFuncs.buildDomCards('First insert');
+    const element2 = domFuncs.buildDomCards('Second insert');
+    group.appendChild(element);
+    expect(group.children.length).toBe(1);
+    group.appendChild(element2);
+    expect(group.children.length).toBe(2);
+    domFuncs.deleteDiv(element);
+    expect(group.children.length).toBe(1);
+    domFuncs.deleteDiv(element2);
+    expect(group.children.length).toBe(0);
 });

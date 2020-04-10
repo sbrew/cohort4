@@ -1,12 +1,13 @@
+// import functions from './fetch.js'
+
 class City {
 
-    // url: 'http://127.0.0.1:5000/'
-
-    constructor(name, latitude, longitude, population) {
+    constructor(name, latitude, longitude, population, key) {
         this.name = name;
         this.latitude = latitude;
         this.longitude = longitude;
         this.population = population;
+        this.key = key;
     }
 
     show() {
@@ -20,6 +21,10 @@ class City {
 
     movedOut(emigration) {
         this.population = this.population - emigration;
+    }
+
+    currentPopulation(){
+        return this.population;
     }
 
     howBig() {
@@ -72,8 +77,20 @@ class Community {
         return sum;
     }
 
-    deleteCity(name){
-        this.cityList.splice(this.cityList.findIndex(value => value.name == name), 1);
+    increasePopulation(local, amount){
+        let index = this.cityList.findIndex(city => city.name === local);
+        this.cityList[index].movedIn(amount);
+        return this.cityList[index].currentPopulation();
+    }
+
+    decreasePopulation(local, amount){
+        let index = this.cityList.findIndex(city => city.name === local);
+        this.cityList[index].movedOut(amount);
+        return this.cityList[index].currentPopulation();
+    }
+
+    deleteCity(local){
+        this.cityList.splice(this.cityList.findIndex(value => value.name === local), 1);
     }
 };
 

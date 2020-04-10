@@ -4,8 +4,8 @@ import functions from './DOM.js';
 let AccountController = new ooStuff.AccountController();
 let i = 0;
 
-addEventListener('click' ,function () {
-    console.log(event.targt);
+window.addEventListener('click', function (event) {
+    console.log(event.target);
 });
 
 createAccount.addEventListener('click', function () {
@@ -20,7 +20,7 @@ createAccount.addEventListener('click', function () {
 
 deposit.addEventListener("click", function () {
     if (lengthCheck() > 0) {
-        AccountController.accountDeposit(dropdownID.value,Number(update.value).toFixed(2));
+        AccountController.accountDeposit(dropdownID.value, Number(update.value).toFixed(2));
         updateBankAccounts();
         clearFields();
     }
@@ -28,9 +28,10 @@ deposit.addEventListener("click", function () {
 
 withdraw.addEventListener("click", function () {
     if (lengthCheck() > 0) {
-        AccountController.accountWithdraw(dropdownID.value,Number(update.value).toFixed(2));
+        AccountController.accountWithdraw(dropdownID.value, Number(update.value).toFixed(2));
         updateBankAccounts();
         clearFields();
+        console.log(AccountController);
     }
 });
 
@@ -69,7 +70,7 @@ function clearFields() {
     accountName.value = "";
     initialDeposit.value = "";
     update.value = "";
-    dropdownID.value= "Select";
+    dropdownID.value = "Select";
 };
 
 function lengthCheck() {

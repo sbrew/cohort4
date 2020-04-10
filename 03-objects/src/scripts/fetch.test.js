@@ -1,4 +1,7 @@
+global.fetch = require('node-fetch');
+
 import fetchFunctions from './fetch';
+
 
 const data = [
     {
@@ -234,19 +237,27 @@ const data = [
 ]
 
 test('does it get the first name', () => {
-    console.log(data[0].name);
+    // console.log(data[0].name);
     expect(fetchFunctions.getFirstName(data)).toBe("Leanne Graham");
 });
 
 test('does it get all the names', () => {
     expect(fetchFunctions.getFirstNameAll(data)).toEqual(['Leanne Graham',
-    'Ervin Howell',
-    'Clementine Bauch',
-    'Patricia Lebsack',
-    'Chelsey Dietrich',
-    'Mrs. Dennis Schulist',
-    'Kurtis Weissnat',
-    'Nicholas Runolfsdottir V',
-    'Glenna Reichert',
-    'Clementina DuBuque']);
+        'Ervin Howell',
+        'Clementine Bauch',
+        'Patricia Lebsack',
+        'Chelsey Dietrich',
+        'Mrs. Dennis Schulist',
+        'Kurtis Weissnat',
+        'Nicholas Runolfsdottir V',
+        'Glenna Reichert',
+        'Clementina DuBuque']);
 });
+
+test('does it give a json file', async () => {
+    const url = "https://jsonplaceholder.typicode.com/users";
+    const data = await fetchFunctions.postData(url);
+    console.log(data);
+
+});
+

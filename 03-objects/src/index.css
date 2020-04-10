@@ -16,15 +16,6 @@ html
     grid-gap: 10px;
 }
 
-.domBox{
-    border: 4px solid;
-    width: 200px;
-    padding: 10px;
-    margin: auto;
-    text-align: center;
-    align-content: center;
-    justify-content: center;   
-}
 
 li {
     list-style-position: inside;
@@ -46,3 +37,24 @@ li {
     box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.2);
 }
 */
+
+.domBox{
+    border: 4px solid;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.726);
+    width: 260px;
+    padding: 10px;
+    /* margin: auto; */
+    text-align: center;
+    align-content: center;
+    justify-content: center;  
+    padding: 15px;
+    border-radius: 10px;
+    
+/*     
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.726);
+    margin: 15px;
+    text-align: center;
+    background-color: rgb(227, 203, 241);
+
+    font-size: 2rem; */
+}
