@@ -1,7 +1,7 @@
-// url: 'http://127.0.0.1:5000/',
 const fetchFunctions = {
-
-    url: 'https://jsonplaceholder.typicode.com/users',
+    
+    // url: 'http://127.0.0.1:5000/',
+    // url: 'https://jsonplaceholder.typicode.com/users',
 
 
     getFirstName(data) {

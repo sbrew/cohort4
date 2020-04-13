@@ -2,12 +2,12 @@ import cityStuff from './CityAndCommunity';
 import domFuncs from './CCDOM';
 
 test('does the class work', () => {
-    let city = new cityStuff.City("Calgary", 51.0447, 114.0719, 1635000);
+    let city = new cityStuff.City("Calgary", 51.0447, 114.0719, 1635000, 0);
     expect(city).toBeInstanceOf(cityStuff.City);
 });
 
 test('does the constructor work', () => {
-    let city = new cityStuff.City("Calgary", 51.0447, 114.0719, 1635000);
+    let city = new cityStuff.City("Calgary", 51.0447, 114.0719, 1635000, 0);
     expect(city.name).toBe("Calgary");
     expect(city.latitude).toBe(51.0447);
     expect(city.longitude).toBe(114.0719);
@@ -56,8 +56,8 @@ test('how big is that place', () => {
 
 test('does it add to the community controller', () => {
     const controller = new cityStuff.Community();
-    expect(controller.createCity("Calgary", "51.0447 N", 114.0719, 1635000)).toEqual([{ name: 'Calgary', latitude: "51.0447 N", longitude: 114.0719, population: 1635000 }]);
-    expect(controller.createCity("Pryp'yat'", "51.4045 N", 30.0542, 0)).toEqual([{ name: 'Calgary', latitude: "51.0447 N", longitude: 114.0719, population: 1635000 }, { name: "Pryp'yat'", latitude: "51.4045 N", longitude: 30.0542, population: 0 }]);
+    expect(controller.createCity("Calgary", "51.0447 N", 114.0719, 1635000)).toBe('k1');
+    expect(controller.createCity("Pryp'yat'", "51.4045 N", 30.0542, 0)).toBe('k2');
 });
 
 test('does it check the hemisphere', () => {
@@ -72,19 +72,18 @@ test('which is the most northern city', () => {
     const controller = new cityStuff.Community();
     controller.createCity("Cusco", -13.5320, 71.9675, 428450);
     controller.createCity("Sydney", -33.8688, 151.2093, 5100000);
-    expect(controller.getMostNorthern()).toBe("Cusco,-13.532,71.9675,428450");
+    expect(controller.getMostNorthern()).toBe("Cusco,-13.532,71.9675,428450,k1");
     controller.createCity("Calgary", 51.0447, 114.0719, 1635000);
-    expect(controller.getMostNorthern()).toBe("Calgary,51.0447,114.0719,1635000");
-    // controller.createCity("Pryp'yat'", "51.4045 N", 30.0542, 0);
+    expect(controller.getMostNorthern()).toBe("Calgary,51.0447,114.0719,1635000,k3");
 });
 
 test('which is the most southern city', () => {
     const controller = new cityStuff.Community();
     controller.createCity("Pryp'yat'", 51.4045, 30.0542, 0);
     controller.createCity("Calgary", 51.0447, 114.0719, 1635000);
-    expect(controller.getMostSouthern()).toBe("Calgary,51.0447,114.0719,1635000");
+    expect(controller.getMostSouthern()).toBe("Calgary,51.0447,114.0719,1635000,k2");
     controller.createCity("Cusco", -13.5320, 71.9675, 428450);
-    expect(controller.getMostSouthern()).toBe("Cusco,-13.532,71.9675,428450");
+    expect(controller.getMostSouthern()).toBe("Cusco,-13.532,71.9675,428450,k3");
 });
 
 test('what is the gloabal population', () => {
@@ -121,7 +120,7 @@ test('does it wipe the city from the planet', () => {
     controller.createCity("Pryp'yat'", 51.4045, 30.0542, 0);
     controller.createCity("Calgary", 51.0447, 114.0719, 1635000);
     controller.deleteCity("Pryp'yat'");
-    expect(controller.cityList).toEqual([{ latitude: 51.0447, longitude: 114.0719, name: "Calgary", population: 1635000 }]);
+    expect(controller.cityList).toEqual([{ key: "k2", latitude: 51.0447, longitude: 114.0719, name: "Calgary", population: 1635000 }]);
     controller.deleteCity("Calgary");
     expect(controller.cityList).toEqual([]);
 });
@@ -140,7 +139,6 @@ test('does it Add Before?', () => {
     controller.createCity("Calgary", 51.0447, 114.0719, 1635000);
     const text = controller.cityList;
     const group = document.createElement('div');
-    console.log(controller.cityList[1]);
     const element = domFuncs.buildDomCards(text);
     group.appendChild(element);
     expect(group.children.length).toBe(1);

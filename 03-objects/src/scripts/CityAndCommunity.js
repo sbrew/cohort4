@@ -1,4 +1,4 @@
-import functions from './fetch.js'
+import fetchFunctions from './fetch.js'
 
 class City {
 
@@ -23,7 +23,7 @@ class City {
         this.population = this.population - emigration;
     }
 
-    currentPopulation(){
+    currentPopulation() {
         return this.population;
     }
 
@@ -40,16 +40,25 @@ class City {
 class Community {
     constructor() {
         this.cityList = [];
+        this.counter = 1;
+        // this.place = {}; //still unsure of why using this
+        // const webAddy = "http://127.0.0.1:5000/";
+    }
+
+    nextKey() {
+        return `k${this.counter++}`;
     }
 
     createCity(name, latitude, longitude, population) {
-        this.cityList.push(new City(name, latitude, longitude, population));
-        return this.cityList;
+        let key = this.nextKey();
+        this.cityList.push(new City(name, latitude, longitude, population, key));
+        // this.place[key] = newCity;
+        await fetchFunctions.postData("http://127.0.0.1:5000/"+ "add", {name:name, latitude:latitude, longitude:longitude, population:population, key:key});
+        return key;
     }
-
-    whichSphere(name) {
-        let index = this.cityList.findIndex(x => x.name === name);
-        var str = this.cityList[index].latitude;
+    
+    whichSphere(local) {
+        var str = this.cityFinder(local).latitude;
         if (str > 0) {
             return `This location is in the Northern Hemisphere`;
         }
@@ -76,21 +85,24 @@ class Community {
         }
         return sum;
     }
-
-    increasePopulation(local, amount){
+    
+    cityFinder(local){
         let index = this.cityList.findIndex(city => city.name === local);
-        this.cityList[index].movedIn(amount);
-        return this.cityList[index].currentPopulation();
+        return this.cityList[index];
     }
 
-    decreasePopulation(local, amount){
-        let index = this.cityList.findIndex(city => city.name === local);
-        this.cityList[index].movedOut(amount);
-        return this.cityList[index].currentPopulation();
+    increasePopulation(local, amount) {
+        this.cityFinder(local).movedIn(amount);
+        return this.cityFinder(local).currentPopulation();
     }
 
-    deleteCity(local){
-        this.cityList.splice(this.cityList.findIndex(value => value.name === local), 1);
+    decreasePopulation(local, amount) {
+        this.cityFinder(local).movedOut(amount);
+        return this.cityFinder(local).currentPopulation();
+    }
+
+    deleteCity(local) {
+        this.cityList.splice(this.cityFinder(local), 1);
     }
 };
 

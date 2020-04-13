@@ -2,16 +2,15 @@
 import cityStuff from './CityAndCommunity.js';
 import domFuncs from './CCDOM.js';
 import fetchFunctions from './fetch.js'
-import CityAndCommunity from './CityAndCommunity.js';
 
 let cityController = new cityStuff.Community();
 const url="http://127.0.0.1:5000/"
 let i = 0;
-let key = 0;
 
-window.addEventListener('click', function (event) {
-    console.log(event.target);
-});
+
+// window.addEventListener('click', function (event) {
+//     console.log(event.target);
+// });
 
 window.addEventListener('DOMContentLoaded', async () => {
     let data = await fetchFunctions.postData('http://127.0.0.1:5000/all');
@@ -25,25 +24,30 @@ createCityID.addEventListener('click', async () => {
         domFuncs.addBefore(domBoxID, cityController.cityList[i]);
         document.getElementById(`${cityController.cityList[i].name}hemisphereDisplayID`).textContent = cityController.whichSphere(cityController.cityList[i].name);
         document.getElementById(`${cityController.cityList[i].name}citySizeID`).textContent = cityController.cityList[i].howBig();
-        await fetchFunctions.postData(url + "add", {name:nameInputID.value, latitude:50, longitude:100, population:50000, key:key});
+        updateFields();
         i++;
-        key++;
         clearFields();
     }
 });
 
 window.addEventListener('click', async () => {
-    if (event.target.textContent === 'Remove City') {
-        domFuncs.deleteDiv(event.target.parentElement);
-        cityController.deleteCity(event.target.parentElement.id);
+const eTarget = event.target;
+
+    if (eTarget.textContent === 'Remove City') {
+        domFuncs.deleteDiv(eTarget.parentElement);
+        cityController.deleteCity(eTarget.parentElement.id);
+        updateFields();
         i--;
     }
     if (event.target.textContent === 'Moved In') {
-        document.getElementById(`span${event.target.parentElement.id}`).textContent = `Population: ${cityController.increasePopulation(event.target.parentElement.id, Number(document.getElementById(`${event.target.parentElement.id}updatedPopulationID`).value))} `;
-        // document.getElementById(`${event.target.parentElement.id}citySizeID`).textContent = `Population: ${cityController.increasePopulation(event.target.parentElement.id, Number(document.getElementById(`${event.target.parentElement.id}updatedPopulationID`).value))} `;
-    }
+        document.getElementById(`span${eTarget.parentElement.id}`).textContent = `Population: ${cityController.increasePopulation(eTarget.parentElement.id, Number(document.getElementById(`${eTarget.parentElement.id}updatedPopulationID`).value))} `;
+        document.getElementById(`${eTarget.parentElement.id}citySizeID`).textContent = cityController.cityFinder(eTarget.parentElement.id).howBig();
+        updateFields();
+    }   
     if (event.target.textContent === 'Moved out') {
-        document.getElementById(`span${event.target.parentElement.id}`).textContent = `Population: ${cityController.decreasePopulation(event.target.parentElement.id, Number(document.getElementById(`${event.target.parentElement.id}updatedPopulationID`).value))} `;
+        document.getElementById(`span${eTarget.parentElement.id}`).textContent = `Population: ${cityController.decreasePopulation(eTarget.parentElement.id, Number(document.getElementById(`${eTarget.parentElement.id}updatedPopulationID`).value))} `;
+        document.getElementById(`${eTarget.parentElement.id}citySizeID`).textContent = cityController.cityFinder(eTarget.parentElement.id).howBig();
+        updateFields();
     }
 
 });
@@ -53,6 +57,12 @@ function clearFields() {
     latitudeInputID.value = "";
     longitudeInputID.value = "";
     populationInputID.value = "";
+};
+
+function updateFields() {
+    IDmostNorthern.textContent=cityController.getMostNorthern();
+    IDmostSouthern.textContent=cityController.getMostSouthern();
+    IDtotalPop.textContent=cityController.getPopulation();
 };
 
 
