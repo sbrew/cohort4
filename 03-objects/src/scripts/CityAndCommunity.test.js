@@ -63,12 +63,12 @@ test('does it add to the community controller', async () => {
 
     let data = await fetchFunctions.postData(url + 'clear');
     const controller = new cityStuff.Community();
-    controller.createCity("Calgary", "51.0447 N", 114.0719, 1635000);
+    controller.createCity("Calgary", 51.0447, 114.0719, 1635000);
     data = await fetchFunctions.postData(url + 'read', {key:"k1"});
     expect(data.status).toEqual(200);
     expect(data.length).toBe(1);
     expect(data[0].name).toBe("Calgary");
-    controller.createCity("Pryp'yat'", "51.4045 N", 30.0542, 0);
+    controller.createCity("Pryp'yat'", 51.4045, 30.0542, 0);
     data = await fetchFunctions.postData(url + 'read', {key:"k2"});
     expect(data.status).toEqual(200);
     expect(data.length).toBe(1);
