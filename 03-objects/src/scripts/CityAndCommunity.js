@@ -42,21 +42,25 @@ class Community {
         this.cityList = [];
         this.counter = 1;
         // this.place = {}; //still unsure of why using this
-        // const webAddy = "http://127.0.0.1:5000/";
+        // this.url = "http://127.0.0.1:5000/";
     }
 
     nextKey() {
         return `k${this.counter++}`;
     }
 
-    createCity(name, latitude, longitude, population) {
-        let key = this.nextKey();
-        this.cityList.push(new City(name, latitude, longitude, population, key));
-        // this.place[key] = newCity;
-        await fetchFunctions.postData("http://127.0.0.1:5000/"+ "add", {name:name, latitude:latitude, longitude:longitude, population:population, key:key});
-        return key;
+    async createCity(name, latitude, longitude, population) {
+        // try {
+            let key = this.nextKey();
+            this.cityList.push(new City(name, latitude, longitude, population, key));
+            // this.place[key] = newCity;
+            await fetchFunctions.postData("http://127.0.0.1:5000/" + "add", { name: name, latitude: latitude, longitude: longitude, population: population, key: key });
+            return key;
+        // } catch {
+        //     console.log("error");
+        // }
     }
-    
+
     whichSphere(local) {
         var str = this.cityFinder(local).latitude;
         if (str > 0) {
@@ -85,8 +89,8 @@ class Community {
         }
         return sum;
     }
-    
-    cityFinder(local){
+
+    cityFinder(local) {
         let index = this.cityList.findIndex(city => city.name === local);
         return this.cityList[index];
     }

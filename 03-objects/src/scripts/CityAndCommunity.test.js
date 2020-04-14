@@ -1,5 +1,8 @@
+global.fetch = require('node-fetch');
+
 import cityStuff from './CityAndCommunity';
 import domFuncs from './CCDOM';
+import fetchFunctions from './fetch';
 
 test('does the class work', () => {
     let city = new cityStuff.City("Calgary", 51.0447, 114.0719, 1635000, 0);
@@ -54,10 +57,25 @@ test('how big is that place', () => {
     expect(city6.howBig()).toBe("Ghost Town");
 });
 
-test('does it add to the community controller', () => {
+
+test('does it add to the community controller', async () => {
+    const url= 'http://127.0.0.1:5000/';
+
+    let data = await fetchFunctions.postData(url + 'clear');
     const controller = new cityStuff.Community();
-    expect(controller.createCity("Calgary", "51.0447 N", 114.0719, 1635000)).toBe('k1');
-    expect(controller.createCity("Pryp'yat'", "51.4045 N", 30.0542, 0)).toBe('k2');
+    controller.createCity("Calgary", "51.0447 N", 114.0719, 1635000);
+    data = await fetchFunctions.postData(url + 'read', {key:"k1"});
+    expect(data.status).toEqual(200);
+    expect(data.length).toBe(1);
+    expect(data[0].name).toBe("Calgary");
+    controller.createCity("Pryp'yat'", "51.4045 N", 30.0542, 0);
+    data = await fetchFunctions.postData(url + 'read', {key:"k2"});
+    expect(data.status).toEqual(200);
+    expect(data.length).toBe(1);
+    expect(data[0].name).toBe("Pryp'yat'");
+    data = await fetchFunctions.postData(url + 'all');
+    expect(data.status).toEqual(200);
+    expect(data.length).toBe(2);
 });
 
 test('does it check the hemisphere', () => {
