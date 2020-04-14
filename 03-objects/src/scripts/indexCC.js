@@ -24,6 +24,7 @@ createCityID.addEventListener('click', async () => {
         domFuncs.addBefore(domBoxID, cityController.cityList[i]);
         document.getElementById(`${cityController.cityList[i].name}hemisphereDisplayID`).textContent = cityController.whichSphere(cityController.cityList[i].name);
         document.getElementById(`${cityController.cityList[i].name}citySizeID`).textContent = cityController.cityList[i].howBig();
+        console.log(cityController);
         updateFields();
         i++;
         clearFields();

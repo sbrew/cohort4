@@ -41,8 +41,8 @@ class Community {
     constructor() {
         this.cityList = [];
         this.counter = 1;
-        // this.place = {}; //still unsure of why using this
-        // this.url = "http://127.0.0.1:5000/";
+        //this.myFav = {}; //still unsure of why using this
+        this.url = "http://127.0.0.1:5000/";
     }
 
     nextKey() {
@@ -53,9 +53,9 @@ class Community {
         // try {
             let key = this.nextKey();
             this.cityList.push(new City(name, latitude, longitude, population, key));
-            // this.place[key] = newCity;
-            await fetchFunctions.postData("http://127.0.0.1:5000/" + "add", { name: name, latitude: latitude, longitude: longitude, population: population, key: key });
-            return key;
+            // this.myFav[key] = myFav;
+            let data = await fetchFunctions.postData(this.url + "add", { name: name, latitude: latitude, longitude: longitude, population: population, key: key });
+            return data;
         // } catch {
         //     console.log("error");
         // }

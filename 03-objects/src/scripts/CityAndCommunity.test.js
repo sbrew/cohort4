@@ -76,6 +76,22 @@ test('does it add to the community controller', async () => {
     data = await fetchFunctions.postData(url + 'all');
     expect(data.status).toEqual(200);
     expect(data.length).toBe(2);
+    // testing for 130E: Cities added to both server and object
+    //updating population of object side and not server side
+    controller.increasePopulation("Calgary",1000);
+    expect(controller.cityList[0].currentPopulation()).toBe(1636000);
+    data = await fetchFunctions.postData(url + 'read', {key:"k1"});
+    expect(data.status).toEqual(200);
+    expect(data.length).toBe(1);
+    expect(data[0].population).toBe(1635000);
+    controller.createCity("Sydney", -33.8688, 151.2093, 5100000);
+    controller.increasePopulation("Sydney",1000);
+    expect(controller.cityList[2].currentPopulation()).toBe(5101000);
+    data = await fetchFunctions.postData(url + 'all');
+    expect(data[2].population).toBe(5100000);
+    controller.increasePopulation("Pryp'yat'",1000);
+    expect(controller.cityList[1].currentPopulation()).toBe(1000);
+    expect(data[1].population).toBe(0);
 });
 
 test('does it check the hemisphere', () => {
