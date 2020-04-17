@@ -2,6 +2,8 @@ import React from 'react';
 import logo from './logo.svg';
 import './App.css';
 import MyComponent from './components/MyComponent';
+import OddComponent from './components/OddComponent';
+import EvenComponent from './components/EvenComponent';
 
 
 class App extends React.Component {
@@ -10,24 +12,45 @@ class App extends React.Component {
     this.counter = 21;
     this.state = {
       myState: "TBD",
-      whatToSay:""
+      whatToSay: ""
     };
   }
 
   onPushMe = () => {
-    this.counter++;
     console.log(this.counter);
     this.setState({
       myState: "now:" + this.counter
     });
-    this.setState({
-      whatToSay: "What Ever"
-    });
-    // console.log("You pushed me");
+    this.counter++;
+    console.log("You pushed me");
   }
 
   render() {
-    return (
+    // if (this.counter % 2 === 0)
+      return this.counter % 2 === 0 ?
+        <div className="App">
+          <header className="App-header">
+            <img src={logo} className="App-logo" alt="logo" />
+
+            <h1>I am in control of this application and my name is Steve {this.state.myState}</h1>
+            <button onClick={this.onPushMe}>
+              Push Me
+          </button>
+            <MyComponent whatToSay={"What Ever"} onPushMe={this.onPushMe} />
+            <OddComponent onPushMe={this.onPushMe} />
+            <p>
+              Edit <code>src/App.js</code> and save to reload.
+        </p>
+            <a
+              className="App-link"
+              href="https://reactjs.org"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              Learn React
+        </a>
+          </header>
+        </div> :
       <div className="App">
         <header className="App-header">
           <img src={logo} className="App-logo" alt="logo" />
@@ -35,12 +58,12 @@ class App extends React.Component {
           <h1>I am in control of this application and my name is Steve {this.state.myState}</h1>
           <button onClick={this.onPushMe}>
             Push Me
-          </button>
-          <MyComponent whatToSay={"What Ever"} />
-          <MyComponent onClick={this.onPushMe} />
+        </button>
+          <MyComponent whatToSay={"What Ever"} onPushMe={this.onPushMe} />
+          <EvenComponent onPushMe={this.onPushMe} />
           <p>
             Edit <code>src/App.js</code> and save to reload.
-        </p>
+      </p>
           <a
             className="App-link"
             href="https://reactjs.org"
@@ -48,10 +71,10 @@ class App extends React.Component {
             rel="noopener noreferrer"
           >
             Learn React
-        </a>
+      </a>
         </header>
       </div>
-    );
+    ;
   }
 }
 

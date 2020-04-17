@@ -6,7 +6,7 @@ class MyComp extends React.Component {
         return (
             <div>
                 <h1>Hello World from MyComp {this.props.whatToSay}</h1>
-                <button onClick={this.props.whatToSay}>Do this to do that</button>
+                <button onClick={this.props.onPushMe}>Do this to do that</button>
             </div>
         )
     }
