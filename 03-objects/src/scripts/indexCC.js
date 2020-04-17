@@ -7,6 +7,8 @@ let cityController = new cityStuff.Community();
 const url = "http://127.0.0.1:5000/"
 let i = 0;
 
+
+//this is logic based so I should find a way to put it into PSC
 window.addEventListener('DOMContentLoaded', async () => {
     let data = await fetchFunctions.postData(url +'all');
     console.log(data);
