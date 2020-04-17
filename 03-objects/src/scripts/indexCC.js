@@ -4,18 +4,18 @@ import domFuncs from './CCDOM.js';
 import fetchFunctions from './fetch.js'
 
 let cityController = new cityStuff.Community();
-const url="http://127.0.0.1:5000/"
+const url = "http://127.0.0.1:5000/"
 let i = 0;
 
-
-// window.addEventListener('click', function (event) {
-//     console.log(event.target);
-// });
-
 window.addEventListener('DOMContentLoaded', async () => {
-    let data = await fetchFunctions.postData('http://127.0.0.1:5000/all');
-    
+    let data = await fetchFunctions.postData(url +'all');
     console.log(data);
+    data.forEach(value => {
+        cityController.createCity(value.name, Number(value.latitude), Number(value.longitude), Number(value.population), parseFloat(value.key));
+        domFuncs.addBefore(domBoxID, cityController.cityList[cityController.cityList.length-1]);
+        updateFields();
+        i++;
+    });
 });
 
 createCityID.addEventListener('click', async () => {
@@ -32,7 +32,7 @@ createCityID.addEventListener('click', async () => {
 });
 
 window.addEventListener('click', async () => {
-const eTarget = event.target;
+    const eTarget = event.target;
 
     if (eTarget.textContent === 'Remove City') {
         domFuncs.deleteDiv(eTarget.parentElement);
@@ -44,7 +44,7 @@ const eTarget = event.target;
         document.getElementById(`span${eTarget.parentElement.id}`).textContent = `Population: ${cityController.increasePopulation(eTarget.parentElement.id, Number(document.getElementById(`${eTarget.parentElement.id}updatedPopulationID`).value))} `;
         document.getElementById(`${eTarget.parentElement.id}citySizeID`).textContent = cityController.cityFinder(eTarget.parentElement.id).howBig();
         updateFields();
-    }   
+    }
     if (event.target.textContent === 'Moved out') {
         document.getElementById(`span${eTarget.parentElement.id}`).textContent = `Population: ${cityController.decreasePopulation(eTarget.parentElement.id, Number(document.getElementById(`${eTarget.parentElement.id}updatedPopulationID`).value))} `;
         document.getElementById(`${eTarget.parentElement.id}citySizeID`).textContent = cityController.cityFinder(eTarget.parentElement.id).howBig();
@@ -61,9 +61,7 @@ function clearFields() {
 };
 
 function updateFields() {
-    IDmostNorthern.textContent=cityController.getMostNorthern();
-    IDmostSouthern.textContent=cityController.getMostSouthern();
-    IDtotalPop.textContent=cityController.getPopulation();
+    IDmostNorthern.textContent = cityController.getMostNorthern();
+    IDmostSouthern.textContent = cityController.getMostSouthern();
+    IDtotalPop.textContent = cityController.getPopulation();
 };
-
-
