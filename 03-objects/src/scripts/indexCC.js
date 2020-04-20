@@ -1,35 +1,41 @@
 // Start of Cities and Community project -section 130D
 import cityStuff from './CityAndCommunity.js';
 import domFuncs from './CCDOM.js';
-// import fetchFunctions from './fetch.js'
+import fetchFunctions from './fetch.js'
 
 let cityController = new cityStuff.Community();
-// const url = "http://127.0.0.1:5000/"
-// let i = 0;
+let cityList = cityController.cityList;
+let url = "http://127.0.0.1:5000/";
 
-
-//this is logic based so I should find a way to put it into PSC
 window.addEventListener('DOMContentLoaded', async () => {
-    cityController.updateCities();
-    // let data = await fetchFunctions.postData(url +'all');
-    // console.log(data);
-    // data.forEach(value => {
-    //     cityController.createCity(value.name, Number(value.latitude), Number(value.longitude), Number(value.population), parseFloat(value.key));
-        // domFuncs.addBefore(domBoxID, cityController.cityList[cityController.cityList.length-1]);
-        updateFields();
-        // i++;
-    // });
+    let data = await fetchFunctions.postData(url + 'all');
+    console.log(data);
+    data.forEach(value => {
+        cityController.createCity(value.name, Number(value.latitude), Number(value.longitude), Number(value.population), parseFloat(value.key));
+        domFuncs.addBefore(domBoxID, cityController.cityList[cityController.cityList.length - 1]);
+        document.getElementById(`${cityList[cityList.length - 1].name}hemisphereDisplayID`).textContent = cityController.whichSphere(cityList[cityList.length - 1].name);
+        document.getElementById(`${cityList[cityList.length - 1].name}citySizeID`).textContent = cityList[cityList.length - 1].howBig();
+    });
+    updateFields();
 });
+
+// cityController.updateCities();
+// console.log(cityController.cityList[i].name);
+// document.getElementById(`${cityList[cityList.length - 1].name}hemisphereDisplayID`).textContent = cityController.whichSphere(cityList[cityList.length - 1].name);
+// document.getElementById(`${cityList[cityList.length - 1].name}citySizeID`).textContent = cityList[cityList.length - 1].howBig();
+// updateFields();
+// });
+
+
 
 createCityID.addEventListener('click', async () => {
     if (nameInputID.value.length > 0 && latitudeInputID.value.length > 0 && longitudeInputID.value.length > 0 && populationInputID.value.length > 0) {
         cityController.createCity(nameInputID.value, Number(latitudeInputID.value), Number(longitudeInputID.value), Number(populationInputID.value));
-        domFuncs.addBefore(domBoxID, cityController.cityList[cityController.cityList.length-1]);
-        document.getElementById(`${cityController.cityList[cityController.cityList.length-1].name}hemisphereDisplayID`).textContent = cityController.whichSphere(cityController.cityList[cityController.cityList.length-1].name);
-        document.getElementById(`${cityController.cityList[cityController.cityList.length-1].name}citySizeID`).textContent = cityController.cityList[cityController.cityList.length-1].howBig();
+        domFuncs.addBefore(domBoxID, cityList[cityList.length - 1]);
+        document.getElementById(`${cityList[cityList.length - 1].name}hemisphereDisplayID`).textContent = cityController.whichSphere(cityList[cityList.length - 1].name);
+        document.getElementById(`${cityList[cityList.length - 1].name}citySizeID`).textContent = cityList[cityList.length - 1].howBig();
         console.log(cityController);
         updateFields();
-        // i++;
         clearFields();
     }
 });

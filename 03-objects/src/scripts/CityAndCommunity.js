@@ -47,22 +47,30 @@ class Community {
     }
 
     nextKey() {
-        return `k${this.counter++}`;
+        return this.counter++;
     }
 
     async createCity(name, latitude, longitude, population) {
         let key = this.nextKey();
         this.cityList.push(new City(name, latitude, longitude, population, key));
+        console.log(this.cityList[this.cityList.length -1].key);
+        if (this.cityList[this.cityList.length -1].key>key){
         let data = await fetchFunctions.postData(this.url + "add", { name: name, latitude: latitude, longitude: longitude, population: population, key: key });
         return data;
+        }
     }
 
     async updateCities() {
         let data = await fetchFunctions.postData(this.url + 'all');
         data.forEach(value => {
-            this.cityList.push(new City(value.name, Number(value.latitude), Number(value.longitude), Number(value.population), (value.key)));
+            this.createCity(value.name, Number(value.latitude), Number(value.longitude), Number(value.population), (value.key));
             domFuncs.addBefore(domBoxID, this.cityList[this.cityList.length - 1]);
-            let key = this.nextKey();
+            // let key = this.nextKey();
+            // this.getMostNorthern();
+            // this.getMostSouthern();
+            // this.getPopulation();
+            // this.whichSphere(value.name);
+            return this.cityList;
         });
     }
 
