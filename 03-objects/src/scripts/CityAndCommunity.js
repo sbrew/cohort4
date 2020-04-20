@@ -60,19 +60,18 @@ class Community {
         }
     }
 
-    async updateCities() {
-        let data = await fetchFunctions.postData(this.url + 'all');
-        data.forEach(value => {
-            this.createCity(value.name, Number(value.latitude), Number(value.longitude), Number(value.population), (value.key));
-            domFuncs.addBefore(domBoxID, this.cityList[this.cityList.length - 1]);
-            // let key = this.nextKey();
-            // this.getMostNorthern();
-            // this.getMostSouthern();
-            // this.getPopulation();
-            // this.whichSphere(value.name);
-            return this.cityList;
-        });
-    }
+    // async updateCities() {
+    //     let data = await fetchFunctions.postData(this.url + 'all');
+    //     data.forEach(value => {
+    //         this.createCity(value.name, Number(value.latitude), Number(value.longitude), Number(value.population), (value.key));
+    //         domFuncs.addBefore(domBoxID, this.cityList[this.cityList.length - 1]);
+    //         // this.getMostNorthern();
+    //         // this.getMostSouthern();
+    //         // this.getPopulation();
+    //         // this.whichSphere(value.name);
+    //         return this.cityList;
+    //     });
+    // }
 
     whichSphere(local) {
         var str = this.cityFinder(local).latitude;
