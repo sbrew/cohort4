@@ -1,4 +1,5 @@
 import fetchFunctions from './fetch.js'
+import domFuncs from './CCDOM.js';
 
 class City {
 
@@ -50,13 +51,19 @@ class Community {
     }
 
     async createCity(name, latitude, longitude, population) {
+        let key = this.nextKey();
+        this.cityList.push(new City(name, latitude, longitude, population, key));
+        let data = await fetchFunctions.postData(this.url + "add", { name: name, latitude: latitude, longitude: longitude, population: population, key: key });
+        return data;
+    }
+
+    async updateCities() {
+        let data = await fetchFunctions.postData(this.url + 'all');
+        data.forEach(value => {
+            this.cityList.push(new City(value.name, Number(value.latitude), Number(value.longitude), Number(value.population), (value.key)));
+            domFuncs.addBefore(domBoxID, this.cityList[this.cityList.length - 1]);
             let key = this.nextKey();
-            this.cityList.push(new City(name, latitude, longitude, population, key));
-            let data = await fetchFunctions.postData(this.url + "add", { name: name, latitude: latitude, longitude: longitude, population: population, key: key });
-            return data;
-            //getting a post data error
-            //throw in a check to see if key exists
-            //if it does, dont run fetchFunctions.postData 
+        });
     }
 
     whichSphere(local) {
@@ -71,13 +78,17 @@ class Community {
     }
 
     getMostNorthern() {
-        let string = "";
-        return string += `${Object.values(this.cityList.reduce((a, b) => b.latitude > a.latitude ? b : a))}`;
+        if (this.cityList.length > 0) {
+            let string = "";
+            return string += `${Object.values(this.cityList.reduce((a, b) => b.latitude > a.latitude ? b : a))}`;
+        }
     }
 
     getMostSouthern() {
-        let string = "";
-        return string += `${Object.values(this.cityList.reduce((a, b) => b.latitude < a.latitude ? b : a))}`;
+        if (this.cityList.length > 0) {
+            let string = "";
+            return string += `${Object.values(this.cityList.reduce((a, b) => b.latitude < a.latitude ? b : a))}`;
+        }
     }
 
     getPopulation() {
