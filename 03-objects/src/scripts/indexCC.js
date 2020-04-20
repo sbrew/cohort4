@@ -19,6 +19,9 @@ window.addEventListener('DOMContentLoaded', async () => {
     updateFields();
 });
 
+
+
+
 // cityController.updateCities();
 // console.log(cityController.cityList[i].name);
 // document.getElementById(`${cityList[cityList.length - 1].name}hemisphereDisplayID`).textContent = cityController.whichSphere(cityList[cityList.length - 1].name);
