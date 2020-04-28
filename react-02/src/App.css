@@ -2,15 +2,63 @@
   text-align: center;
 }
 
+.game {
+  align-content: center;
+}
+
 .App-logo {
   height: 40vmin;
   pointer-events: none;
+}
+
+.SVG-icon {
+  height: 15vmin;
+  transition: all 1s;
+  transform-origin: 50% 50%;
 }
 
 @media (prefers-reduced-motion: no-preference) {
   .App-logo {
     animation: App-logo-spin infinite 20s linear;
   }
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .SVG-icon {
+    animation: App-logo-spin infinite 20s linear;
+  }
+}
+
+.filter-green:hover {
+  filter: invert(48%) sepia(79%) saturate(2476%) hue-rotate(86deg) brightness(118%) contrast(119%);
+}
+
+.filter-white:hover {
+  filter: invert(100%) sepia(2%) saturate(0%) hue-rotate(175deg) brightness(104%) contrast(102%);
+}
+
+
+@media (prefers-reduced-motion: no-preference) {
+  .SVG-icon:hover {
+    animation: App-logo-respin infinite 10s linear;
+    /* transform: scale(1.4); */
+  }
+}
+
+.SVG-icon {
+  height: 15vmin;
+  transition: all 1s;
+  /* transform-origin: 20% 50%; */
+}
+
+.SVG-header {
+  background-color: #282c34;
+  min-height: 20vh;
+  display: flex;
+  padding: 20px;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
 }
 
 .App-header {
@@ -34,5 +82,14 @@
   }
   to {
     transform: rotate(360deg);
+  }
+}
+
+@keyframes App-logo-respin {
+  from {
+    transform: rotate(360deg);
+  }
+  to {
+    transform: rotate(0deg);
   }
 }

@@ -1,26 +1,34 @@
 import React from 'react';
-import logo from './logo.svg';
+import SVGicons from './components/SVGicons';
 import './App.css';
+import MainPage from './components/MainPage';
+import Game from './components/TicTacToe';
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+class App extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      imageclick: 0,
+
+    };
+  }
+
+  handleClick = (number) => {
+    this.setState({
+      imageclick: number
+    });
+  }
+
+  render() {
+    return (
+      <div className="App">
+        <SVGicons handleClick={this.handleClick}/>
+        {this.state.imageclick === 0 && <MainPage />}
+        {this.state.imageclick === 1 && <Game />}
+
+      </div>
+    );
+  }
 }
 
 export default App;
