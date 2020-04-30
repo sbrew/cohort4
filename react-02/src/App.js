@@ -3,6 +3,7 @@ import SVGicons from './components/SVGicons';
 import './App.css';
 import MainPage from './components/MainPage';
 import Game from './components/TicTacToe';
+import AccountsUI from './components/Accounts';
 
 class App extends React.Component {
   constructor(props) {
@@ -25,6 +26,7 @@ class App extends React.Component {
         <SVGicons handleClick={this.handleClick}/>
         {this.state.imageclick === 0 && <MainPage />}
         {this.state.imageclick === 1 && <Game />}
+        {this.state.imageclick === 2 && <AccountsUI />}
 
       </div>
     );
