@@ -11,7 +11,7 @@ window.addEventListener('click', function (event) {
 createAccount.addEventListener('click', function () {
     if (accountName.value.length > 0 && initialDeposit.value.length > 0) {
         AccountController.addAccount(accountName.value, Number(initialDeposit.value));
-        functions.buildDomCards(showBalanceID, (AccountController.accountArray[i]));
+        functions.addToAccList(showBalanceID, (AccountController.accountArray[i]));
         functions.attachToDD(dropdownID, (AccountController.accountArray[i]));
         i++;
         clearFields();

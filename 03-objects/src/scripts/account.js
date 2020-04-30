@@ -26,20 +26,22 @@ class AccountController {
         this.accountArray.push(new Account(accountName, balance));
         return this.accountArray;
     }
-  
-    getBalance(name){
+
+    accountFinder(name){
         let index = this.accountArray.findIndex(accFinder => accFinder.accountName === name);
-        return this.accountArray[index].getBalance();
+        return this.accountArray[index];
+    }
+    
+    getBalance(name){
+        return this.accountFinder(name).getBalance();
     }
 
     accountDeposit(name, amount) {
-        let index = this.accountArray.findIndex(accFinder => accFinder.accountName === name);
-        this.accountArray[index].deposit(amount);
+        this.accountFinder(name).deposit(amount);
     }
 
     accountWithdraw(name, amount) {
-        let index = this.accountArray.findIndex(accFinder => accFinder.accountName === name);
-        this.accountArray[index].withdraw(amount);
+        this.accountFinder(name).withdraw(amount);
     }
 
     removeAccount(accObj) {

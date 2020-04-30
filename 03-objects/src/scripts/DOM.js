@@ -1,10 +1,11 @@
 const functions = {
 
-    buildDomCards(node, text) {
+    buildDomCards(text) {
         const div = document.createElement('div');
         div.setAttribute('class', 'clCard');//applying premade css to new divs
         div.setAttribute('id', text.accountName);
         div.appendChild(document.createTextNode(text.accountName));
+
         //creating a ptag for balance to easily update balances with deposits and withdraws
         let pTag = document.createElement('P');
         //using `ptag ${text.accountName}` to associate specifc ids while not creating conflict with other id tags
@@ -15,8 +16,12 @@ const functions = {
         const delBut = document.createElement('button');
         delBut.appendChild(document.createTextNode("Close Account"));
         div.appendChild(delBut);
-        node.parentElement.insertBefore(div, node);
         return div;
+    },
+
+    addToAccList(node, text) {
+        const div = functions.buildDomCards(text);
+        node.parentElement.insertBefore(div, node);
     },
 
     dropDownOptions(text) {
