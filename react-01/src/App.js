@@ -26,8 +26,7 @@ class App extends React.Component {
   }
 
   render() {
-    // if (this.counter % 2 === 0)
-      return this.counter % 2 === 0 ?
+      return (
         <div className="App">
           <header className="App-header">
             <img src={logo} className="App-logo" alt="logo" />
@@ -37,7 +36,9 @@ class App extends React.Component {
               Push Me
           </button>
             <MyComponent whatToSay={"What Ever"} onPushMe={this.onPushMe} />
-            <OddComponent onPushMe={this.onPushMe} />
+            <div>
+            {this.counter % 2 === 0 ? <OddComponent /> : <EvenComponent />}
+            </div>
             <p>
               Edit <code>src/App.js</code> and save to reload.
         </p>
@@ -50,31 +51,8 @@ class App extends React.Component {
               Learn React
         </a>
           </header>
-        </div> :
-      <div className="App">
-        <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-
-          <h1>I am in control of this application and my name is Steve {this.state.myState}</h1>
-          <button onClick={this.onPushMe}>
-            Push Me
-        </button>
-          <MyComponent whatToSay={"What Ever"} onPushMe={this.onPushMe} />
-          <EvenComponent onPushMe={this.onPushMe} />
-          <p>
-            Edit <code>src/App.js</code> and save to reload.
-      </p>
-          <a
-            className="App-link"
-            href="https://reactjs.org"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Learn React
-      </a>
-        </header>
-      </div>
-    ;
+        </div>
+       );
   }
 }
 
