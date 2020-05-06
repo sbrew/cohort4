@@ -29,7 +29,6 @@ class AccountDisplay extends React.Component {
 
     render() {
         return (
-            <div className="grid">
                 <div id="updateAccount" className="accountCards">
                     <h2>Account name {this.props.name}</h2>
                     <h2>Account Balance ${this.props.balance}</h2>
@@ -38,7 +37,6 @@ class AccountDisplay extends React.Component {
                     <button id="withdrawID" onClick={this.handleWithdrawClick}>withdraw</button><br />
                     <button id="closeAcctID" onClick={this.handleCloseClick}>Close Account</button>
                 </div>
-            </div>
         );
     }
 }

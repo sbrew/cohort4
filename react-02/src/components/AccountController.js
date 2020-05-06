@@ -2,7 +2,7 @@ class Account {
     constructor(accountName, balance, key) {
         this.accountName = accountName;
         this.balance = Number(balance);
-        this.key= key;
+        this.key = key;
     }
 
     deposit(depAmount) {
@@ -29,7 +29,7 @@ class AccountController {
     }
 
     addAccount(accountName, balance) {
-        let key =this.nextKey();
+        let key = this.nextKey();
         this.accountArray.push(new Account(accountName, balance, key));
         return this.accountArray;
     }
@@ -65,14 +65,31 @@ class AccountController {
     }
 
     biggestAccount() {
-        let string = "";
-        return string += `${Object.values(this.accountArray.reduce((a, b) => b.balance > a.balance ? b : a))}`;
+        let biggest = 0;
+        for (var i = 0; i < this.accountArray.length; i++) {
+            if (biggest < this.accountArray[i].balance) {
+                biggest = this.accountArray[i].balance;
+            }
+        }
+        return biggest;
     }
 
     smallestAccount() {
-        let string = "";
-        return string += `${Object.values(this.accountArray.reduce((a, b) => b.balance < a.balance ? b : a))}`;
+        let smallest=0;
+        for (var i = 0; i < this.accountArray.length; i++) {
+            smallest = this.accountArray[0].balance;
+            if (this.accountArray.length === 0) {
+                smallest = 0;
+                return smallest;
+            } 
+            if (smallest > this.accountArray[i].balance) {
+                smallest = this.accountArray[i].balance;
+            }
+        }
+        return smallest;
     }
 };
 
 export default AccountController;
+
+
