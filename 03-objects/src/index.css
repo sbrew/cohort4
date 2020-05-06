@@ -1,3 +1,9 @@
+.grid{
+   display: grid;
+   justify-content: space-around;
+   grid-template-columns: auto auto auto;
+   grid-row-gap: 25px;
+} 
 /* body,
 h1 
 h2, 
@@ -50,11 +56,11 @@ li {
     padding: 15px;
     border-radius: 10px;
     
-/*     
+    /*     
     box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.726);
     margin: 15px;
     text-align: center;
     background-color: rgb(227, 203, 241);
-
+    
     font-size: 2rem; */
 }

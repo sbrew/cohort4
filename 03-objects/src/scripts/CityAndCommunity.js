@@ -53,25 +53,27 @@ class Community {
     async createCity(name, latitude, longitude, population) {
         let key = this.nextKey();
         this.cityList.push(new City(name, latitude, longitude, population, key));
-        console.log(this.cityList[this.cityList.length -1].key);
-        if (this.cityList[this.cityList.length -1].key>key){
         let data = await fetchFunctions.postData(this.url + "add", { name: name, latitude: latitude, longitude: longitude, population: population, key: key });
         return data;
-        }
     }
 
-    // async updateCities() {
-    //     let data = await fetchFunctions.postData(this.url + 'all');
-    //     data.forEach(value => {
-    //         this.createCity(value.name, Number(value.latitude), Number(value.longitude), Number(value.population), (value.key));
-    //         domFuncs.addBefore(domBoxID, this.cityList[this.cityList.length - 1]);
-    //         // this.getMostNorthern();
-    //         // this.getMostSouthern();
-    //         // this.getPopulation();
-    //         // this.whichSphere(value.name);
-    //         return this.cityList;
-    //     });
-    // }
+
+    async updateCities() {
+        let data = await fetchFunctions.postData(this.url + 'all');
+        this.counter=data.length+1;
+        data.forEach(value => {
+            this.cityList.push(new City(value.name, Number(value.latitude), Number(value.longitude), Number(value.population), (value.key)));
+            domFuncs.addBefore(domBoxID, this.cityList[this.cityList.length - 1]);
+            document.getElementById(`${value.name}hemisphereDisplayID`).textContent = this.whichSphere(value.name);
+            document.getElementById(`${value.name}citySizeID`).textContent = this.cityList[this.cityList.length - 1].howBig();
+            this.whichSphere(value.name);
+            return this.cityList;
+        });
+        IDmostNorthern.textContent =this.getMostNorthern();
+        IDmostSouthern.textContent = this.getMostSouthern();
+        IDtotalPop.textContent = this.getPopulation();
+    }
+
 
     whichSphere(local) {
         var str = this.cityFinder(local).latitude;

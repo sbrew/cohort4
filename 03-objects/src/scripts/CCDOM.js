@@ -5,7 +5,7 @@ const domFuncs = {
         div.setAttribute('id', text.name);
         div.setAttribute('key', text.key);
         div.setAttribute('class', 'domBox'); //applying premade css to new divs
-
+        
         const cityName = document.createElement("h2");
         cityName.textContent = text.name
         div.appendChild(cityName);
