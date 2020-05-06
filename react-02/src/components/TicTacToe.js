@@ -59,7 +59,7 @@ function Square(props) {
 //     //AI to make its turn
 //     let bestScore = -Infinity;
 //     let move;
-//     for (let i = 0; i < 10; i++) {
+//     for (let i = 0; i < 9; i++) {
 //         //is the spot available
 //         if (board[i] == '') {
 //             board[i] = ai;
@@ -84,7 +84,7 @@ function Square(props) {
 
 //     if (isMaximizing) {
 //         let bestScore = -Infinity;
-//         for (let i = 0; i < 10; i++) {
+//         for (let i = 0; i < 9; i++) {
 //             //is the spot available
 //             if (board[i] == '') {
 //                 board[i] = ai;
@@ -96,7 +96,7 @@ function Square(props) {
 //         return bestScore;
 //     } else {
 //         let bestScore = Infinity;
-//         for (let i = 0; i < 10; i++) {
+//         for (let i = 0; i < 9; i++) {
 //             //is the spot available
 //             if (board[i] == '') {
 //                 board[i] = human;
@@ -119,8 +119,8 @@ function Square(props) {
 //             stepNumber: 0,
 //             xIsNext: true,
 //             scores : {
-//                 X: 10,
-//                 O: -10,
+//                 X: 1,
+//                 O: -1,
 //                 tie: 0
 //             },
 //             ai: 'X',
@@ -132,10 +132,16 @@ function Square(props) {
       const history = this.state.history.slice(0, this.state.stepNumber + 1);
       const current = history[history.length - 1];
       const squares = current.squares.slice();
+
+      //
+      
       if (calculateWinner(squares) || squares[i]) {
         return;
       }
       squares[i] = this.state.xIsNext ? 'X' : 'O';
+//try to build in random ai move instead of MINIMAX
+//to understand AI movement better
+
       this.setState({
         history: history.concat([{
           squares: squares,
@@ -212,4 +218,10 @@ function Square(props) {
     return null;
   }
 
+//   function randomBoardMove (squares){
+// for(let i=0; i<squares.length; i++){
+
+// }
+//   };
+// squares: Array(9).fill(null),
   export default  Game;

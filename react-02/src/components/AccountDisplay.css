@@ -1,0 +1,19 @@
+.grid{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+}
+.accountCards{
+    border: 4px solid;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.726);
+    width: 300px;
+    height: auto;
+    padding: 10px;
+    /* margin: auto; */
+    text-align: center;
+    align-content: center;
+    justify-content: center;  
+    padding: 15px;
+    border-radius: 10px;
+
+}

@@ -1,111 +1,97 @@
 import React from 'react';
+import AccountController from './AccountController'
+import AccountDisplay from './AccountDisplay'
 
+let acctCtrl = new AccountController();
 
-class Account {
-    constructor(accountName, balance) {
-        this.accountName = accountName;
-        this.balance = balance;
-    }
-
-    deposit(depAmount) {
-        this.balance = (((this.balance * 100) + (depAmount * 100)) / 100);
-    }
-
-    withdraw(withAmount) {
-        this.balance = (((this.balance * 100) - (withAmount * 100)) / 100);
-    }
-
-    getBalance() {
-        return this.balance;
-    }
-};
-
-class AccountController {
-    constructor() {
-        this.accountArray = [];
-    }
-
-    addAccount(accountName, balance) {
-        this.accountArray.push(new Account(accountName, balance));
-        return this.accountArray;
-    }
-
-    accountFinder(name) {
-        let index = this.accountArray.findIndex(accFinder => accFinder.accountName === name);
-        return this.accountArray[index];
-    }
-
-    getBalance(name) {
-        return this.accountFinder(name).getBalance();
-    }
-
-    accountDeposit(name, amount) {
-        this.accountFinder(name).deposit(amount);
-    }
-
-    accountWithdraw(name, amount) {
-        this.accountFinder(name).withdraw(amount);
-    }
-
-    removeAccount(accObj) {
-        let index = this.accountArray.findIndex(accFinder => accFinder.accountName === accObj);
-        this.accountArray.splice(index, 1);
-    }
-
-    totalCash() {
-        let sum = 0;
-        for (var i = 0; i < this.accountArray.length; i++) {
-            sum = sum + this.accountArray[i].balance;
-        }
-        return sum;
-    }
-
-    biggestAccount() {
-        let string = "";
-        return string += `${Object.values(this.accountArray.reduce((a, b) => b.balance > a.balance ? b : a))}`;
-    }
-
-    smallestAccount() {
-        let string = "";
-        return string += `${Object.values(this.accountArray.reduce((a, b) => b.balance < a.balance ? b : a))}`;
-    }
-};
 
 class AccountsUI extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-
+            name: "",
+            initialDeposit: 0,
+            cards: [],
+            total: acctCtrl.totalCash(),
+            highest: "",
+            lowest: ""
         }
     }
+    displayBiggestAcct = () => {
+        this.setState({highest: acctCtrl.biggestAccount()})
+    }
+
+
+    handleNameChange = (e) => {
+        this.setState({ name: e.target.value })
+    }
+
+    handleDepositChange = (e) => {
+        this.setState({ initialDeposit: e.target.value })
+    }
+
+    createAccountClick = () => {
+        acctCtrl.addAccount(this.state.name, this.state.initialDeposit);
+        this.makeCards();
+        this.displayBiggestAcct();
+    }
+
+    handleDepositClick = (amount, name) => {
+        acctCtrl.accountDeposit(name, amount);
+        this.makeCards();
+    }
+
+    handleWithdrawClick = (amount, name) => {
+        acctCtrl.accountWithdraw(name, amount);
+        this.makeCards();
+    }
+
+    handleCloseClick = (name) => {
+        acctCtrl.removeAccount(name);
+        this.makeCards();
+    }
+
+    makeCards = () => {
+        let size = acctCtrl.accountArray.length;
+        let x = [];
+        for (let i = 0; i < size; i++) {
+            x.push(<AccountDisplay
+                name={acctCtrl.accountArray[i].accountName}
+                balance={acctCtrl.accountArray[i].balance}
+                key={acctCtrl.accountArray[i].key}
+                depositClick={this.handleDepositClick}
+                withdrawClick={this.handleWithdrawClick}
+                closeClick={this.handleCloseClick}
+            />)
+        }
+        this.setState({ cards: x })
+        this.setState({ total: acctCtrl.totalCash() })
+            }
+
+    componentDidMount() {
+        this.makeCards();
+    }
+
 
     render() {
         return (
-            <div className="AccountPage" >
+            <div className="AccountUI" >
                 <div id="newAccount">
 
                     <h1>Bank of EvolveU</h1>
-        Account Name: <input id="accountName" type="text" />
-        Initial deposit: <input id="initialDeposit" type="number" />
-                    <button id="createAccount">Add Account</button>
-                </div>
 
-                <div id="updateAccount">
-                    <input id="update" type="number" />
-                    <button id="deposit">Deposit</button>
-                    <button id="withdraw">withdraw</button>
-        Select Account <select id="dropdownID" name="dropdown">
-                        <option defaultValue="">Select</option>
-                    </select>
-                    <h2>Accounts and Balances</h2>
-                    <div id="showBalanceID" className="clCard">
-                        For All your Banking needs!
-                    </div>
+        Account Name: <input name="accountName" onChange={this.handleNameChange} type="text" />
+        Initial deposit: <input name="initialDeposit" onChange={this.handleDepositChange} type="number" />
+                    <button name="createAccount" onClick={this.createAccountClick}>Add Account</button>
+                </div><br />
+                <h2>Accounts and Balances</h2>
+                <div id="showBalanceID" className="clCard">
+                    {this.state.cards}
+                    For All your Banking needs!
                     <div id="arrayTasks">
-                        <button id='sumArr'>Total Value of Accounts</button>
-                        <button id="lowest">Lowest Value Account</button>
-                        <button id="biggest">Highest Value Account</button>
-                        <p id="messageArea"></p>
+                        Total Value of Accounts ${this.state.total}<br />
+                        Highest Value Account {this.state.highest.accountName}<br />
+                        Lowest Value Account $
                     </div>
                 </div>
             </div>
