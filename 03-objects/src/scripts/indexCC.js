@@ -21,24 +21,24 @@ createCityID.addEventListener('click', async () => {
 });
 
 window.addEventListener('click', async () => {
-    const eTarget = event.target;+
-    console.log(event.target.parentElement);
-    console.log(event.target.parentElement.getAttribute("key"));
+    const eTarget = event.target;
+    let key = Number(event.target.parentElement.getAttribute("key"));
 
     if (eTarget.textContent === 'Remove City') {
         domFuncs.deleteDiv(eTarget.parentElement);
-        let key = Number(event.target.parentElement.getAttribute("key"))
         cityController.deleteCity(eTarget.parentElement.id, key);
         updateFields();
     }
     if (event.target.textContent === 'Moved In') {
         document.getElementById(`span${eTarget.parentElement.id}`).textContent = `Population: ${cityController.increasePopulation(eTarget.parentElement.id, Number(document.getElementById(`${eTarget.parentElement.id}updatedPopulationID`).value))} `;
         document.getElementById(`${eTarget.parentElement.id}citySizeID`).textContent = cityController.cityFinder(eTarget.parentElement.id).howBig();
+        cityController.updatePopulation(eTarget.parentElement.id, key );
         updateFields();
     }
     if (event.target.textContent === 'Moved out') {
         document.getElementById(`span${eTarget.parentElement.id}`).textContent = `Population: ${cityController.decreasePopulation(eTarget.parentElement.id, Number(document.getElementById(`${eTarget.parentElement.id}updatedPopulationID`).value))} `;
         document.getElementById(`${eTarget.parentElement.id}citySizeID`).textContent = cityController.cityFinder(eTarget.parentElement.id).howBig();
+        cityController.updatePopulation(eTarget.parentElement.id, key );
         updateFields();
     }
 });

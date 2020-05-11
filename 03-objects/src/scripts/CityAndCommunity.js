@@ -51,13 +51,10 @@ class Community {
 
     async createCity(name, latitude, longitude, population) {
         let key = this.nextKey();
-        console.log(this.highestKey());
         this.cityList.push(new City(name, latitude, longitude, population, key));
         let data = await fetchFunctions.postData(this.url + "add", { name: name, latitude: latitude, longitude: longitude, population: population, key: key });
-        console.log(this.cityList);
         return data;
     }
-
 
     async updateCities() {
         let data = await fetchFunctions.postData(this.url + 'all');
@@ -70,12 +67,10 @@ class Community {
             return this.cityList;
         });
         this.counter = this.highestKey();
-        console.log(this.cityList);
         IDmostNorthern.textContent = this.getMostNorthern();
         IDmostSouthern.textContent = this.getMostSouthern();
         IDtotalPop.textContent = this.getPopulation();
     }
-
 
     whichSphere(local) {
         var str = this.cityFinder(local).latitude;
@@ -140,10 +135,15 @@ class Community {
         return this.cityFinder(local).currentPopulation();
     }
 
+    async updatePopulation(local, keySpec) {
+        let updated = this.cityFinder(local);
+        let data = await fetchFunctions.postData(this.url + 'update', { key: keySpec, name: updated.name, latitude: updated.latitude, population: updated.population, longitude: updated.longitude });
+        return data;
+    }
+
     async deleteCity(local, keySpec) {
         this.cityList.splice(this.cityFinder(local), 1);
-        // console.log(this.cityFinder(local).key);
-        let data = await fetchFunctions.postData(this.url + 'delete', { key: keySpec});
+        let data = await fetchFunctions.postData(this.url + 'delete', { key: keySpec });
         return data;
     }
 
@@ -156,9 +156,8 @@ class Community {
                 }
             })
         }
-        return newKeys+1;
+        return newKeys + 1;
     }
-
 };
 
 export default { City, Community };

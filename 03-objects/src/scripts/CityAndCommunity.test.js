@@ -59,17 +59,17 @@ test('how big is that place', () => {
 
 
 test('does it add to the community controller', async () => {
-    const url= 'http://127.0.0.1:5000/';
+    const url = 'http://127.0.0.1:5000/';
 
     let data = await fetchFunctions.postData(url + 'clear');
     const controller = new cityStuff.Community();
     controller.createCity("Calgary", 51.0447, 114.0719, 1635000);
-    data = await fetchFunctions.postData(url + 'read', {key:1});
+    data = await fetchFunctions.postData(url + 'read', { key: 1 });
     expect(data.status).toEqual(200);
     expect(data.length).toBe(1);
     expect(data[0].name).toBe("Calgary");
     controller.createCity("Pryp'yat'", 51.4045, 30.0542, 0);
-    data = await fetchFunctions.postData(url + 'read', {key:2});
+    data = await fetchFunctions.postData(url + 'read', { key: 2 });
     expect(data.status).toEqual(200);
     expect(data.length).toBe(1);
     expect(data[0].name).toBe("Pryp'yat'");
@@ -77,22 +77,28 @@ test('does it add to the community controller', async () => {
     expect(data.status).toEqual(200);
     expect(data.length).toBe(2);
     // testing for 130E: Cities added to both server and object
-    //updating population of object side and not server side
-    controller.increasePopulation("Calgary",1000);
+    // updating population on the server and object
+    controller.increasePopulation("Calgary", 1000);
     expect(controller.cityList[0].currentPopulation()).toBe(1636000);
-    data = await fetchFunctions.postData(url + 'read', {key:1});
+    controller.updatePopulation("Calgary", 1);
+    data = await fetchFunctions.postData(url + 'read', { key: 1 });
     expect(data.status).toEqual(200);
     expect(data.length).toBe(1);
-    expect(data[0].population).toBe(1635000);
+    expect(data[0].population).toBe(1636000);
     controller.createCity("Sydney", -33.8688, 151.2093, 5100000);
-    controller.increasePopulation("Sydney",1000);
+    controller.increasePopulation("Sydney", 1000);
+    controller.updatePopulation("Sydney", 3);
     expect(controller.cityList[2].currentPopulation()).toBe(5101000);
     data = await fetchFunctions.postData(url + 'all');
-    expect(data[2].population).toBe(5100000);
-    controller.increasePopulation("Pryp'yat'",1000);
+    expect(data[2].population).toBe(5101000);
+    controller.increasePopulation("Pryp'yat'", 1000);
+    controller.updatePopulation("Pryp'yat'", 2);
+    data = await fetchFunctions.postData(url + 'all');
     expect(controller.cityList[1].currentPopulation()).toBe(1000);
-    expect(data[1].population).toBe(0);
+    expect(data[1].population).toBe(1000);
+    data = await fetchFunctions.postData(url + 'clear');
 });
+
 
 test('does it check the hemisphere', () => {
     const controller = new cityStuff.Community();
@@ -134,9 +140,9 @@ test('does it increase the population', () => {
     const controller = new cityStuff.Community();
     controller.createCity("Pryp'yat'", 51.4045, 30.0542, 0);
     controller.createCity("Calgary", 51.0447, 114.0719, 1635000);
-    controller.increasePopulation("Pryp'yat'",1000);
+    controller.increasePopulation("Pryp'yat'", 1000);
     expect(controller.cityList[0].currentPopulation()).toBe(1000);
-    controller.increasePopulation("Calgary",1000000);
+    controller.increasePopulation("Calgary", 1000000);
     expect(controller.cityList[1].currentPopulation()).toBe(2635000);
 });
 
@@ -144,8 +150,8 @@ test('does it decrease the population', () => {
     const controller = new cityStuff.Community();
     controller.createCity("Calgary", 51.0447, 114.0719, 1635000);
     controller.createCity("Pryp'yat'", 51.4045, 30.0542, 10000);
-    expect(controller.decreasePopulation("Calgary",200000)).toBe(1435000);
-    expect(controller.decreasePopulation("Pryp'yat'",10000)).toBe(0);
+    expect(controller.decreasePopulation("Calgary", 200000)).toBe(1435000);
+    expect(controller.decreasePopulation("Pryp'yat'", 10000)).toBe(0);
     console.log("Chernobyl Meltdown!!!");
 });
 
