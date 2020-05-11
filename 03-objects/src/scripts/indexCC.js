@@ -15,20 +15,21 @@ createCityID.addEventListener('click', async () => {
         domFuncs.addBefore(domBoxID, cityList[cityList.length - 1]);
         document.getElementById(`${cityList[cityList.length - 1].name}hemisphereDisplayID`).textContent = cityController.whichSphere(cityList[cityList.length - 1].name);
         document.getElementById(`${cityList[cityList.length - 1].name}citySizeID`).textContent = cityList[cityList.length - 1].howBig();
-        // console.log(cityController);
         updateFields();
         clearFields();
     }
 });
 
 window.addEventListener('click', async () => {
-    const eTarget = event.target;
+    const eTarget = event.target;+
+    console.log(event.target.parentElement);
+    console.log(event.target.parentElement.getAttribute("key"));
 
     if (eTarget.textContent === 'Remove City') {
         domFuncs.deleteDiv(eTarget.parentElement);
-        cityController.deleteCity(eTarget.parentElement.id);
+        let key = Number(event.target.parentElement.getAttribute("key"))
+        cityController.deleteCity(eTarget.parentElement.id, key);
         updateFields();
-        i--;
     }
     if (event.target.textContent === 'Moved In') {
         document.getElementById(`span${eTarget.parentElement.id}`).textContent = `Population: ${cityController.increasePopulation(eTarget.parentElement.id, Number(document.getElementById(`${eTarget.parentElement.id}updatedPopulationID`).value))} `;

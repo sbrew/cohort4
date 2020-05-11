@@ -42,7 +42,6 @@ class Community {
     constructor() {
         this.cityList = [];
         this.counter = 1;
-        //this.myFav = {}; //still unsure of why using this
         this.url = "http://127.0.0.1:5000/";
     }
 
@@ -52,15 +51,16 @@ class Community {
 
     async createCity(name, latitude, longitude, population) {
         let key = this.nextKey();
+        console.log(this.highestKey());
         this.cityList.push(new City(name, latitude, longitude, population, key));
         let data = await fetchFunctions.postData(this.url + "add", { name: name, latitude: latitude, longitude: longitude, population: population, key: key });
+        console.log(this.cityList);
         return data;
     }
 
 
     async updateCities() {
         let data = await fetchFunctions.postData(this.url + 'all');
-        this.counter=data.length+1;
         data.forEach(value => {
             this.cityList.push(new City(value.name, Number(value.latitude), Number(value.longitude), Number(value.population), (value.key)));
             domFuncs.addBefore(domBoxID, this.cityList[this.cityList.length - 1]);
@@ -69,7 +69,9 @@ class Community {
             this.whichSphere(value.name);
             return this.cityList;
         });
-        IDmostNorthern.textContent =this.getMostNorthern();
+        this.counter = this.highestKey();
+        console.log(this.cityList);
+        IDmostNorthern.textContent = this.getMostNorthern();
         IDmostSouthern.textContent = this.getMostSouthern();
         IDtotalPop.textContent = this.getPopulation();
     }
@@ -88,15 +90,30 @@ class Community {
 
     getMostNorthern() {
         if (this.cityList.length > 0) {
-            let string = "";
-            return string += `${Object.values(this.cityList.reduce((a, b) => b.latitude > a.latitude ? b : a))}`;
+            let mostNorthern = this.cityList[0];
+            this.cityList.forEach(value => {
+                if (value.latitude > mostNorthern.latitude) {
+                    mostNorthern = value;
+                }
+            })
+            let string = `${mostNorthern.name} at ${mostNorthern.latitude}° latitude`;
+            return string;
         }
     }
 
     getMostSouthern() {
         if (this.cityList.length > 0) {
-            let string = "";
-            return string += `${Object.values(this.cityList.reduce((a, b) => b.latitude < a.latitude ? b : a))}`;
+            //     let string = "";
+            //     return string += `${Object.values(this.cityList.reduce((a, b) => b.latitude < a.latitude ? b : a))}`;
+            // }
+            let mostSouthern = this.cityList[0];
+            this.cityList.forEach(value => {
+                if (value.latitude < mostSouthern.latitude) {
+                    mostSouthern = value;
+                }
+            })
+            let string = `${mostSouthern.name} at ${mostSouthern.latitude}° latitude`;
+            return string;
         }
     }
 
@@ -123,9 +140,25 @@ class Community {
         return this.cityFinder(local).currentPopulation();
     }
 
-    deleteCity(local) {
+    async deleteCity(local, keySpec) {
         this.cityList.splice(this.cityFinder(local), 1);
+        // console.log(this.cityFinder(local).key);
+        let data = await fetchFunctions.postData(this.url + 'delete', { key: keySpec});
+        return data;
     }
+
+    highestKey() {
+        let newKeys = 0;
+        if (this.cityList.length > 0) {
+            this.cityList.forEach(value => {
+                if (value.key > newKeys) {
+                    newKeys = value.key;
+                }
+            })
+        }
+        return newKeys+1;
+    }
+
 };
 
 export default { City, Community };
