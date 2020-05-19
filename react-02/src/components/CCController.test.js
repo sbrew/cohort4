@@ -203,3 +203,19 @@ test('does it wipe the city from the planet', async () => {
     controller.deleteCity("Calgary");
     expect(controller.cityList).toEqual([]);
 });
+
+test('does the key counter work', async () => {
+    const controller = new cityStuff.Community();
+    expect(controller.counter).toBe(1);
+    controller.createCity("Pryp'yat'", 51.4045, 30.0542, 0);
+    expect(controller.counter).toBe(2);
+    controller.createCity("Calgary", 51.0447, 114.0719, 1635000);
+    expect(controller.counter).toBe(3);
+});
+
+test('whats the highest key', async () => {
+    const url = 'http://127.0.0.1:5000/';
+    const controller = new cityStuff.Community();
+    await controller.updateCities();
+    expect(controller.highestKey()).toBe(3);
+});
