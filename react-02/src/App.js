@@ -4,6 +4,7 @@ import './App.css';
 import MainPage from './components/MainPage';
 import Game from './components/TicTacToe';
 import AccountsUI from './components/Accounts';
+import CitiesUI from './components/CitiesAndCommunities';
 
 class App extends React.Component {
   constructor(props) {
@@ -27,6 +28,7 @@ class App extends React.Component {
         {this.state.imageclick === 0 && <MainPage />}
         {this.state.imageclick === 1 && <Game />}
         {this.state.imageclick === 2 && <AccountsUI />}
+        {this.state.imageclick === 3 && <CitiesUI />}
 
       </div>
     );

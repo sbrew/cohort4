@@ -1,7 +1,7 @@
 import React from 'react';
 import AccountController from './AccountController'
-import AccountDisplay from './AccountDisplay'
-import './AccountDisplay.css';
+import AccountDisplayComp from './AccountDisplayComp'
+import './Display.css';
 
 let acctCtrl = new AccountController();
 
@@ -73,7 +73,7 @@ class AccountsUI extends React.Component {
         let size = acctCtrl.accountArray.length;
         let x = [];
         for (let i = 0; i < size; i++) {
-            x.push(<AccountDisplay
+            x.push(<AccountDisplayComp
                 name={acctCtrl.accountArray[i].accountName}
                 balance={acctCtrl.accountArray[i].balance}
                 key={acctCtrl.accountArray[i].key}
@@ -103,7 +103,7 @@ class AccountsUI extends React.Component {
                     <button name="createAccount" onClick={this.createAccountClick}>Add Account</button>
                 </div><br />
                 <h2>Accounts and Balances</h2>
-                <div id="showBalanceID" className="clCard grid">
+                <div id="showBalanceID" className="grid">
                     {this.state.cards}
                 </div>
                    <h2>For All your Banking needs!</h2>

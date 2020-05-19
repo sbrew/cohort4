@@ -40,7 +40,7 @@
 
 @media (prefers-reduced-motion: no-preference) {
   .SVG-icon:hover {
-    animation: App-logo-respin infinite 10s linear;
+    animation: App-logo-respin infinite 5s linear;
     /* transform: scale(1.4); */
   }
 }

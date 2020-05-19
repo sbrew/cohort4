@@ -1,8 +1,8 @@
 import React from 'react';
-import './AccountDisplay.css';
+import './Display.css';
 
 
-class AccountDisplay extends React.Component {
+class AccountDisplayComp extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -41,4 +41,4 @@ class AccountDisplay extends React.Component {
     }
 }
 
-export default AccountDisplay;
+export default AccountDisplayComp;
