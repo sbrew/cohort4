@@ -89,13 +89,13 @@ class CitiesUI extends React.Component {
         const cards = this.state.comCtrler.cityList.map(city => {
             return <CityDisplayComp
                 delFunc={this.deletingCities}
-                onPopulationChange={this.handlePopulationChange}
                 popIncrease={this.handleImmigration}
                 popDecrease={this.handleEmigration}
                 updateServers={this.updateServerData}
                 hemisphere={this.cityHemisphere}
                 key={city.key}
                 city={city}
+                onPopulationChange={this.handlePopulationChange}
                 popChange={this.state.populationChange} />
         })
 

@@ -3,114 +3,95 @@ import AccountController from './AccountController'
 import AccountDisplayComp from './AccountDisplayComp'
 import './Display.css';
 
-let acctCtrl = new AccountController();
+// let acctCtrl = new AccountController();
 
 class AccountsUI extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            name: "",
+            acctCtrl: new AccountController(),
+            accountName: "",
             initialDeposit: 0,
-            cards: [],
-            total: acctCtrl.totalCash(),
+            balanceChange: 0,
+            total: 0,
             highest: 0,
             lowest: 0
         }
     }
 
-    displayBiggestAcct = () => {
-        this.setState({ highest: acctCtrl.biggestAccount() })
+    handleNameInput = (e) => {
+        this.setState({ accountName: e.target.value })
     }
 
-    displaySmallestAcct = () => {
-        this.setState({ lowest: acctCtrl.smallestAccount() })
-    }
-
-
-    handleNameChange = (e) => {
-        this.setState({ name: e.target.value })
-    }
-
-    handleDepositChange = (e) => {
+    handleDepositInput = (e) => {
         this.setState({ initialDeposit: e.target.value })
     }
 
     clearFields = () => {
-        this.setState({ name: "" });
+        this.setState({ accountName: "" });
         this.setState({ initialDeposit: "" });
     }
 
+    handleBalanceChange = (balanceChange) => {
+        this.setState({ balanceChange })
+    }
+
     createAccountClick = () => {
-        acctCtrl.addAccount(this.state.name, this.state.initialDeposit);
-        this.makeCards();
-        this.displayBiggestAcct();
-        this.displaySmallestAcct();
+        this.state.acctCtrl.addAccount(this.state.accountName, this.state.initialDeposit);
         this.clearFields();
     }
 
-    handleDepositClick = (amount, name) => {
-        acctCtrl.accountDeposit(name, amount);
-        this.makeCards();
-        this.displayBiggestAcct();
-        this.displaySmallestAcct();
+    handleDepositClick = (props) => {
+        this.state.acctCtrl.accountDeposit(props.accountName, this.state.balanceChange);
+        this.setState({ acctCtrl: this.state.acctCtrl })
+
     }
 
-    handleWithdrawClick = (amount, name) => {
-        acctCtrl.accountWithdraw(name, amount);
-        this.makeCards();
-        this.displayBiggestAcct();
-        this.displaySmallestAcct();
+    handleWithdrawClick = (props) => {
+        this.state.acctCtrl.accountWithdraw(props.accountName, this.state.balanceChange);
+        this.setState({ acctCtrl: this.state.acctCtrl })
     }
 
-    handleCloseClick = (name) => {
-        acctCtrl.removeAccount(name);
-        this.makeCards();
-        this.displayBiggestAcct();
-        this.displaySmallestAcct();
+    handleCloseClick = (props) => {
+        this.state.acctCtrl.removeAccount(props.accountName)
+        this.setState({ acctCtrl: this.state.acctCtrl })
     }
 
-    makeCards = () => {
-        let size = acctCtrl.accountArray.length;
-        let x = [];
-        for (let i = 0; i < size; i++) {
-            x.push(<AccountDisplayComp
-                name={acctCtrl.accountArray[i].accountName}
-                balance={acctCtrl.accountArray[i].balance}
-                key={acctCtrl.accountArray[i].key}
+    render() {
+        const totalCash = this.state.acctCtrl.totalCash();
+        const biggestAcct = this.state.acctCtrl.biggestAccount();
+        const smallestAcct = this.state.acctCtrl.smallestAccount();
+
+        const cards = this.state.acctCtrl.accountArray.map(account => {
+            return <AccountDisplayComp
+                key={account.key}
+                account={account}
                 depositClick={this.handleDepositClick}
                 withdrawClick={this.handleWithdrawClick}
                 closeClick={this.handleCloseClick}
-            />)
-        }
-        this.setState({ cards: x })
-        this.setState({ total: acctCtrl.totalCash() })
-    }
-
-    componentDidMount() {
-        this.makeCards();
-    }
-
-
-    render() {
+                onBalanceChange={this.handleBalanceChange}
+                balanceChange={this.state.balanceChange}
+            />
+        })
         return (
             <div className="AccountUI" >
                 <div id="newAccount">
 
                     <h1>Bank of EvolveU</h1>
 
-        Account Name: <input name="accountName" value={this.state.name} onChange={this.handleNameChange} type="text" />
-        Initial deposit: <input name="initialDeposit" value={this.state.initialDeposit} onChange={this.handleDepositChange} type="number" />
+        Account Name: <input name="accountName" value={this.state.accountName} onChange={this.handleNameInput} type="text" />
+        Initial deposit: <input name="initialDeposit" value={this.state.initialDeposit} onChange={this.handleDepositInput} type="number" />
                     <button name="createAccount" onClick={this.createAccountClick}>Add Account</button>
                 </div><br />
                 <h2>Accounts and Balances</h2>
                 <div id="showBalanceID" className="grid">
-                    {this.state.cards}
+                    {cards}
                 </div>
-                   <h2>For All your Banking needs!</h2>
+                <h2>For All your Banking needs!</h2>
                 <div id="arrayTasks">
-                    Total Value of Accounts ${this.state.total}<br />
-                        Highest Value Account ${this.state.highest}<br />
-                        Lowest Value Account ${this.state.lowest}
+                    Total Value of Accounts ${totalCash}<br />
+                        Highest Value Account ${biggestAcct}<br />
+                        Lowest Value Account ${smallestAcct}
                 </div>
 
             </div>

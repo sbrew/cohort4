@@ -51,7 +51,6 @@ class Community {
     async createCity(name, latitude, longitude, population) {
         let key = this.nextKey();
         this.cityList.push(new City(name, latitude, longitude, population, key));
-        // return this.cityList;
         let data = await fetching.postData(this.url + "add", { name: name, latitude: latitude, longitude: longitude, population: population, key: key });
         return data;
     }
@@ -160,4 +159,4 @@ class Community {
     }
 };
 
-export default {Community, City};
+export default Community;
