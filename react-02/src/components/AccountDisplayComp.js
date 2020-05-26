@@ -31,11 +31,11 @@ class AccountDisplayComp extends React.Component {
 
     render() {
         return (
-                <div id="updateAccount" className="accountCards">
+                <div className="accountCards">
                     <h2>Account name {this.state.account.accountName}</h2>
                     <h2>Account Balance ${this.state.account.balance}</h2>
-                    <input id="update" onChange={this.handleBalanceChange} type="number" />
-                    <button id="depositID" onClick={this.handleDepositClick}>Deposit</button>
+                    <input id={this.state.account.accountName} value="" onChange={this.handleBalanceChange} type="number" />
+                    <button id="depositID" data-testid={this.state.account.accountName} onClick={this.handleDepositClick}>Deposit</button>
                     <button id="withdrawID" onClick={this.handleWithdrawClick}>withdraw</button><br />
                     <button id="closeAcctID" onClick={this.handleCloseClick}>Close Account</button>
                 </div>

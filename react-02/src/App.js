@@ -3,7 +3,7 @@ import SVGicons from './components/SVGicons';
 import './App.css';
 import MainPage from './components/MainPage';
 import Game from './components/TicTacToe';
-import AccountsUI from './components/Accounts';
+import AccountsUI from './components/AccountsApp';
 import CitiesUI from './components/CitiesAndCommunities';
 
 class App extends React.Component {
