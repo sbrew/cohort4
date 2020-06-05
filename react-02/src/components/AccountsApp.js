@@ -38,7 +38,6 @@ class AccountsUI extends React.Component {
     }
 
     createAccountClick = () => {
-        
         let msg = this.state.acctCtrl.addAccount({ accountName: this.accountName.current.value, balance: Number(this.initialDeposit.current.value) });
         if (msg){
             this.setState({message:msg})
@@ -79,11 +78,8 @@ class AccountsUI extends React.Component {
                 withdrawClick={this.handleWithdrawClick}
                 closeClick={this.handleCloseClick}
                 onBalanceChange={this.handleBalanceChange}
-                balanceChange={this.state.balanceChange}
-            />
-        }
-        )
-
+                balanceChange={this.state.balanceChange}  />
+        })
 
         return (
             <div className="AccountUI" >

@@ -4,7 +4,7 @@ import './App.css';
 import MainPage from './components/MainPage';
 import Game from './components/TicTacToe';
 import AccountsUI from './components/AccountsApp';
-import CitiesUI from './components/CitiesAndCommunities';
+import CitiesUI from './components/CitiesAndCommunitiesApp';
 
 class App extends React.Component {
   constructor(props) {

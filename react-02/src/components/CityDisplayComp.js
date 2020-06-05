@@ -28,22 +28,17 @@ class CityDisplayComp extends React.Component {
         this.props.updateServers(this.state.city)
     }
 
-    whichHemisphere = () => {
-       return this.props.hemisphere(this.state.city)
-    }
-
     render() {
-        const hemisphere = this.whichHemisphere()
         return (
             <div id="updateCommunity" className="accountCards">
                 <h2>{this.state.city.name}</h2>
                 <span>Latitude: {this.state.city.latitude}</span> <span>Longitude: {this.state.city.longitude}</span>
-                <p>{hemisphere}</p>
+                <p>{this.props.hemisphere}</p>
                 <span>Population: {this.state.city.population} {this.state.city.howBig()}  </span><br />
                 <input type="number" onChange={this.handlePopulationChange} /><br />
-                <button onClick={this.handleImmigration} >Moving In</button>
-                <button onClick={this.handleEmigration} >Moving Out</button><br />
-                <button onClick={this.destroyingCities} >Remove City</button>
+                <button id="iDMovingIn" onClick={this.handleImmigration} >Moving In</button>
+                <button id="iDMovingOut" onClick={this.handleEmigration} >Moving Out</button><br />
+                <button id="iDRemoveCity" onClick={this.destroyingCities} >Remove City</button>
             </div>
         );
     }

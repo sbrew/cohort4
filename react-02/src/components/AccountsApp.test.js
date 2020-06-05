@@ -1,8 +1,7 @@
 import React from "react";
-import { fireEvent, render, screen, act } from '@testing-library/react';
+import { fireEvent, render, screen } from '@testing-library/react';
 
 import AccountsUI from './AccountsApp';
-import funcs from './AccountController'
 
 test('test the basic Account user interface', () => {
 
@@ -26,6 +25,7 @@ test('test the basic Account user interface', () => {
     click('Add Account');
 
     screen.getByText(/account name savings/i);
+    screen.debug()
 });
 
 function click(txt) {

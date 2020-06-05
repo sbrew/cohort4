@@ -62,42 +62,48 @@ test('does it add to the community controller', async () => {
 
     let data = await fetching.postData(url + 'clear');
     const controller = new cityStuff.Community();
-    controller.createCity("Calgary", 51.0447, 114.0719, 1635000);
+    let value1 = await controller.createCity("", "", "", "");
+    expect(value1).toBe(('City name can not be blank'));
+    let value2 = await controller.createCity("Calgary", "", "", "");
+    expect(value2).toBe("Need to enter a Latitude");
+    let value3 = await controller.createCity("Calgary", "51.0447", "", "");
+    expect(value3).toBe("Need to enter a Longitude");
+    let value4 = await controller.createCity("Calgary", 51.0447, 114.0719, "");
+    expect(value4).toBe("Need to enter Population amount");
+    await controller.createCity("Calgary", 51.0447, 114.0719, 1635000);
     data = await fetching.postData(url + 'read', { key: 1 });
     expect(data.status).toEqual(200);
     expect(data.length).toBe(1);
     expect(data[0].name).toBe("Calgary");
-    controller.createCity("Pryp'yat'", 51.4045, 30.0542, 0);
+    await controller.createCity("Phoenix", 33.4484, 112.0740, 25288);
     data = await fetching.postData(url + 'read', { key: 2 });
     expect(data.status).toEqual(200);
     expect(data.length).toBe(1);
-    expect(data[0].name).toBe("Pryp'yat'");
+    expect(data[0].name).toBe("Phoenix");
     data = await fetching.postData(url + 'all');
     expect(data.status).toEqual(200);
     expect(data.length).toBe(2);
-    // testing for 130E: Cities added to both server and object
-    // updating population on the server and object
     controller.increasePopulation("Calgary", 1000);
     expect(controller.cityList[0].currentPopulation()).toBe(1636000);
-    controller.updatePopulation("Calgary", 1);
+    await controller.updatePopulation("Calgary", 1);
     data = await fetching.postData(url + 'read', { key: 1 });
     expect(data.status).toEqual(200);
     expect(data.length).toBe(1);
     expect(data[0].population).toBe(1636000);
-    controller.createCity("Sydney", -33.8688, 151.2093, 5100000);
+    await controller.createCity("Sydney", -33.8688, 151.2093, 5100000);
     controller.increasePopulation("Sydney", 1000);
-    controller.updatePopulation("Sydney", 3);
+    await controller.updatePopulation("Sydney", 3);
     expect(controller.cityList[2].currentPopulation()).toBe(5101000);
     data = await fetching.postData(url + 'all');
     expect(data[2].population).toBe(5101000);
-    controller.increasePopulation("Pryp'yat'", 1000);
-    controller.updatePopulation("Pryp'yat'", 2);
+    controller.increasePopulation("Phoenix", 1000);
+    await controller.updatePopulation("Phoenix", 2);
     data = await fetching.postData(url + 'all');
-    expect(controller.cityList[1].currentPopulation()).toBe(1000);
-    expect(data[1].population).toBe(1000);
+    expect(controller.cityList[1].currentPopulation()).toBe(26288);
+    expect(data[1].population).toBe(26288);
 });
 
-test('are we reloading the data', async () =>{
+test('are we reloading the data', async () => {
     const controller = new cityStuff.Community();
     expect(controller.cityList.length).toBe(0);
     await controller.updateCities();
@@ -108,9 +114,9 @@ test('does it check the hemisphere', async () => {
     const url = 'http://127.0.0.1:5000/';
     let data = await fetching.postData(url + 'clear');
     const controller = new cityStuff.Community();
-    controller.createCity("Calgary", 51.0447, 114.0719, 1635000);
+    await controller.createCity("Calgary", 51.0447, 114.0719, 1635000);
     expect(controller.whichSphere("Calgary")).toBe(`This location is in the Northern Hemisphere`);
-    controller.createCity("Sydney", -33.8688, 151.2093, 5100000);
+    await controller.createCity("Sydney", -33.8688, 151.2093, 5100000);
     expect(controller.whichSphere("Sydney")).toBe(`This location is in the Southern Hemisphere`);
 });
 
@@ -118,10 +124,10 @@ test('which is the most northern city', async () => {
     const url = 'http://127.0.0.1:5000/';
     let data = await fetching.postData(url + 'clear');
     const controller = new cityStuff.Community();
-    controller.createCity("Cusco", -13.5320, 71.9675, 428450);
-    controller.createCity("Sydney", -33.8688, 151.2093, 5100000);
+    await controller.createCity("Cusco", -13.5320, 71.9675, 428450);
+    await controller.createCity("Sydney", -33.8688, 151.2093, 5100000);
     expect(controller.getMostNorthern()).toBe("Cusco at -13.532° latitude");
-    controller.createCity("Calgary", 51.0447, 114.0719, 1635000);
+    await controller.createCity("Calgary", 51.0447, 114.0719, 1635000);
     expect(controller.getMostNorthern()).toBe("Calgary at 51.0447° latitude");
 });
 
@@ -129,10 +135,10 @@ test('which is the most southern city', async () => {
     const url = 'http://127.0.0.1:5000/';
     let data = await fetching.postData(url + 'clear');
     const controller = new cityStuff.Community();
-    controller.createCity("Pryp'yat'", 51.4045, 30.0542, 0);
-    controller.createCity("Calgary", 51.0447, 114.0719, 1635000);
+    await controller.createCity("Pryp'yat'", 51.4045, 30.0542, 0);
+    await controller.createCity("Calgary", 51.0447, 114.0719, 1635000);
     expect(controller.getMostSouthern()).toBe("Calgary at 51.0447° latitude");
-    controller.createCity("Cusco", -13.5320, 71.9675, 428450);
+    await controller.createCity("Cusco", -13.5320, 71.9675, 428450);
     expect(controller.getMostSouthern()).toBe("Cusco at -13.532° latitude");
 });
 
@@ -140,23 +146,24 @@ test('what is the gloabal population', async () => {
     const url = 'http://127.0.0.1:5000/';
     let data = await fetching.postData(url + 'clear');
     const controller = new cityStuff.Community();
-    controller.createCity("Pryp'yat'", 51.4045, 30.0542, 0);
-    controller.createCity("Calgary", 51.0447, 114.0719, 1635000);
-    controller.createCity("Cusco", -13.5320, 71.9675, 428450);
-    controller.createCity("Sydney", -33.8688, 151.2093, 5100000);
-    controller.createCity("Vancouver", 49.2827, 123.1207, 675218);
+    await controller.createCity("Pryp'yat'", 51.4045, 30.0542, 0);
+    await controller.createCity("Calgary", 51.0447, 114.0719, 1635000);
+    await controller.createCity("Cusco", -13.5320, 71.9675, 428450);
+    await controller.createCity("Sydney", -33.8688, 151.2093, 5100000);
+    await controller.createCity("Vancouver", 49.2827, 123.1207, 675218);
     expect(controller.getPopulation()).toBe(7838668);
 });
 
-test('what is my city index', () => {
+test('what is my city index', async () => {
+    const url = 'http://127.0.0.1:5000/';
+    let data = await fetching.postData(url + 'clear');
     const controller = new cityStuff.Community();
-    controller.createCity("Pryp'yat'", 51.4045, 30.0542, 0);
-    controller.createCity("Calgary", 51.0447, 114.0719, 1635000);
-    controller.createCity("Cusco", -13.5320, 71.9675, 428450);
-    controller.createCity("Sydney", -33.8688, 151.2093, 5100000);
-    controller.createCity("Vancouver", 49.2827, 123.1207, 675218);
-    expect(controller.cityIndex("Cusco")).toBe(2);
-    expect(controller.cityIndex("Vancouver")).toBe(4);
+    await controller.createCity("Calgary", 51.0447, 114.0719, 1635000);
+    await controller.createCity("Cusco", -13.5320, 71.9675, 428450);
+    await controller.createCity("Sydney", -33.8688, 151.2093, 5100000);
+    await controller.createCity("Vancouver", 49.2827, 123.1207, 675218);
+    expect(controller.cityIndex("Cusco")).toBe(1);
+    expect(controller.cityIndex("Vancouver")).toBe(3);
 });
 
 test('does it find my specific city', () => {
@@ -165,20 +172,17 @@ test('does it find my specific city', () => {
     controller.createCity("Calgary", 51.0447, 114.0719, 1635000);
     controller.createCity("Cusco", -13.5320, 71.9675, 428450);
     controller.createCity("Sydney", -33.8688, 151.2093, 5100000);
-    expect(controller.cityFinder("Calgary")).toEqual({"key": 2, "latitude": 51.0447, "longitude": 114.0719, "name": "Calgary", "population": 1635000});
-    expect(controller.cityFinder("Sydney")).toEqual({"key": 4, "latitude": -33.8688, "longitude": 151.2093, "name": "Sydney", "population": 5100000});
+    expect(controller.cityFinder("Calgary")).toEqual({ "key": 1, "latitude": 51.0447, "longitude": 114.0719, "name": "Calgary", "population": 1635000 });
+    expect(controller.cityFinder("Sydney")).toEqual({ "key": 3, "latitude": -33.8688, "longitude": 151.2093, "name": "Sydney", "population": 5100000 });
 });
 
 test('does it increase the population', async () => {
     const url = 'http://127.0.0.1:5000/';
     let data = await fetching.postData(url + 'clear');
     const controller = new cityStuff.Community();
-    controller.createCity("Pryp'yat'", 51.4045, 30.0542, 0);
-    controller.createCity("Calgary", 51.0447, 114.0719, 1635000);
-    controller.increasePopulation("Pryp'yat'", 1000);
-    expect(controller.cityList[0].currentPopulation()).toBe(1000);
+    await controller.createCity("Calgary", 51.0447, 114.0719, 1635000);
     controller.increasePopulation("Calgary", 1000000);
-    expect(controller.cityList[1].currentPopulation()).toBe(2635000);
+    expect(controller.cityList[0].currentPopulation()).toBe(2635000);
 });
 
 test('does it decrease the population', async () => {
@@ -196,18 +200,18 @@ test('does it wipe the city from the planet', async () => {
     const url = 'http://127.0.0.1:5000/';
     let data = await fetching.postData(url + 'clear');
     const controller = new cityStuff.Community();
-    controller.createCity("Pryp'yat'", 51.4045, 30.0542, 0);
-    controller.createCity("Calgary", 51.0447, 114.0719, 1635000);
-    controller.deleteCity("Pryp'yat'");
-    expect(controller.cityList).toEqual([{ key: 2, latitude: 51.0447, longitude: 114.0719, name: "Calgary", population: 1635000 }]);
-    controller.deleteCity("Calgary");
+    // await controller.createCity("Pryp'yat'", 51.4045, 30.0542, 0);
+    await controller.createCity("Calgary", 51.0447, 114.0719, 1635000);
+    // await controller.deleteCity("Pryp'yat'",1 );
+    expect(controller.cityList).toEqual([{ key: 1, latitude: 51.0447, longitude: 114.0719, name: "Calgary", population: 1635000 }]);
+    await controller.deleteCity("Calgary", 1);
     expect(controller.cityList).toEqual([]);
 });
 
 test('does the key counter work', async () => {
     const controller = new cityStuff.Community();
     expect(controller.counter).toBe(1);
-    controller.createCity("Pryp'yat'", 51.4045, 30.0542, 0);
+    controller.createCity("Pryp'yat'", 51.4045, 30.0542, 1);
     expect(controller.counter).toBe(2);
     controller.createCity("Calgary", 51.0447, 114.0719, 1635000);
     expect(controller.counter).toBe(3);
@@ -218,4 +222,10 @@ test('whats the highest key', async () => {
     const controller = new cityStuff.Community();
     await controller.updateCities();
     expect(controller.highestKey()).toBe(3);
+});
+
+test('do we get random data', async () => {
+    const url = 'http://127.0.0.1:5000/';
+    const controller = new cityStuff.Community();
+    console.log(await controller.generateRandomCity());
 });

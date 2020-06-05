@@ -2,13 +2,11 @@ import React from "react";
 import { fireEvent, render, screen, act } from '@testing-library/react';
 
 import AccountDisplayComp from './AccountDisplayComp';
-import AccountsUI from './AccountsApp';
 import funcs from './AccountController';
 
 
 test('test the basic Account display', () => {
     // set up the callbacks to test later
-    const mockonBalanceChangeCallback = jest.fn();
     const mockdepositClickCallback = jest.fn();
     const mockwithdrawClickCallback = jest.fn();
     const mockcloseClickCallback = jest.fn();
@@ -30,7 +28,6 @@ test('test the basic Account display', () => {
         return <AccountDisplayComp
             key={key}
             account={account}
-            onBalanceChange={mockonBalanceChangeCallback}
             depositClick={mockdepositClickCallback}
             withdrawClick={mockwithdrawClickCallback}
             closeClick={mockcloseClickCallback}
