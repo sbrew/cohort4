@@ -20,7 +20,7 @@ class LinkedList {
     }
 
     goToHeadNode() {
-        this.currentNode = this.head;
+        this.currentNode = this.head.priorNode;
     }
 
     goToTailNode() {
@@ -32,79 +32,50 @@ class LinkedList {
             this.currentNode = this.currentNode.forwardNode
     }
 
-    insertFirst(subject, amount) {
-        if (!this.head) {
-            let node = new ListNode(subject, amount, this.head);
-            this.head = node;
-            this.tail = node;
-            this.currentNode = node;
-        } else {
-            this.head = new ListNode(subject, amount, this.head);
-            this.currentNode = this.head;
-        }
-        this.size++;
+    movingBackward(){
+        if(this.currentNode.priorNode)
+        this.currentNode = this.currentNode.priorNode;
     }
 
-    insertLast(subject, amount) {
-        let node = new ListNode(subject, amount, null);
-        let current;
-        //if empty, make head
-        if (!this.head) {
-            this.head = node;
-            this.tail = node;
-            this.currentNode = node;
-        } else {
-            current = this.head;
-            this.tail = new ListNode(subject, amount, null);
-            this.currentNode = this.tail;
-
-            while (current.forwardNode) {
-                current = current.forwardNode;
-            }
-            current.forwardNode = node;
-        }
-        this.size++;
-    }
     //insert at location
     insertAtNext(subject, amount) {
-        let node = new ListNode(subject, amount, this.currentNode?.forwardNode);
+        let node = new ListNode(subject, amount);
+        let current;
+        //if the list is empty
         if (!this.head) {
             this.head = node;
             this.tail = node;
             this.currentNode = node;
-        } else {
-            this.currentNode.forwardNode = node;
-            this.currentNode = node;
-            if (!this.currentNode.forwardNode)
-                this.tail = node;
+        //if replacing first item in list
+        }else if (!this.currentNode) {
+            let newForward = this.head;
+            this.currentNode = new ListNode(subject, amount);
+            this.currentNode.forwardNode = newForward;
+            newForward.priorNode = this.currentNode
+            this.head=this.currentNode;
+        //if replacing tail
+        } else if (!this.currentNode.forwardNode) {
+            current = this.currentNode
+            this.tail = node;
+            this.currentNode=node;
+            this.currentNode.priorNode=current
+            current.forwardNode= this.currentNode;
+        //if adding in the middle
+        }else{
+            current=this.currentNode;
+            let oldForward = current.forwardNode;
+            this.currentNode=node;
+            this.currentNode.priorNode=current;
+            current.forwardNode=this.currentNode;
+            this.currentNode.forwardNode=oldForward;
+            oldForward.priorNode=this.currentNode
         }
-
-        // //if index is out of range
-        // if (index > 0 && index > this.size) {
-        //     return;
-        // }
-        // //if first index
-        // if (index === 0) {
-        //     this.head = new ListNode(data, this.head);
-        //     return;
-        // }
-        // const node = new ListNode(data);
-        // let current, previous;
-        // //set current to first
-        // current = this.head;
-        // let count = 0;
-
-        // while (count < index) {
-        //     previous = current; //node before index
-        //     count++;
-        //     current = current.next; // node after index
-        // }
-        // node.next = current;
-        // previous.next = node;
-
         this.size++;
     }
     //remove at location
+    removeCurrent() {
+
+    }
 
 }
 
