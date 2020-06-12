@@ -1,7 +1,7 @@
 import React from 'react';
-import cityStuff from './CCController'
+import cityStuff from './buisness/CCController'
 import CityDisplayComp from './CityDisplayComp'
-import './Display.css';
+import '../Display.css';
 
 class CitiesUI extends React.Component {
     constructor() {

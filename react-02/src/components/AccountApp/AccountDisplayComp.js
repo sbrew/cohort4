@@ -1,5 +1,5 @@
 import React from 'react';
-import './Display.css';
+import '../Display.css';
 
 
 class AccountDisplayComp extends React.Component {
@@ -13,6 +13,7 @@ class AccountDisplayComp extends React.Component {
     
     handleBalanceChange = (e) => {
         this.props.onBalanceChange(Number(e.target.value))
+        console.log(this.state.balanceChange)
     }
 
     handleDepositClick = () => {

@@ -6,7 +6,6 @@ import City from './City.svg';
 import gears from './gears.svg';
 import spectrumOnWhite from './spectrumOnWhite.svg';
 import logo from './logo.svg';
-import '../App.css';
 
 function SVGicons(props) {
   return (
@@ -16,7 +15,7 @@ function SVGicons(props) {
         <img onClick={() => {props.handleClick(1)}} src={TTTgame} className="SVG-icon" alt="icon" />
         <img onClick={() => {props.handleClick(2)}} src={Accounts} className="SVG-icon" alt="icon" />
         <img onClick={() => {props.handleClick(3)}} src={City} className="SVG-icon" alt="icon" />
-        <img src={blackOnWhite} className="SVG-icon filter-white" alt="icon" />
+        <img onClick={() => {props.handleClick(4)}} src={blackOnWhite} className="SVG-icon filter-white" alt="icon" />
         <img src={gears} className="SVG-icon filter-green" alt="icon" />
         <img src={spectrumOnWhite} className="SVG-icon" alt="icon" />
       </header>

@@ -1,5 +1,5 @@
 import React from 'react';
-import './Display.css';
+import '../Display.css';
 
 class CityDisplayComp extends React.Component {
     constructor(props) {

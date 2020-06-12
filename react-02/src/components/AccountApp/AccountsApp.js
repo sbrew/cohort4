@@ -1,16 +1,17 @@
 import React from 'react';
-import AccountStuff from './AccountController'
+import AccountStuff from './buisness/AccountController'
 import AccountDisplayComp from './AccountDisplayComp'
-import './Display.css';
+import '../Display.css';
 
 class AccountsUI extends React.Component {
     constructor() {
+
         super();
         this.accountName = React.createRef();
         this.initialDeposit = React.createRef();
         this.state = {
             acctCtrl: new AccountStuff.AccountController(),
-            balanceChange: 0,
+            balanceChange: '',
             total: 0,
             highest: 0,
             lowest: 0,
@@ -35,6 +36,7 @@ class AccountsUI extends React.Component {
 
     handleBalanceChange = (balanceChange) => {
         this.setState({ balanceChange })
+        console.log(balanceChange)
     }
 
     createAccountClick = () => {
