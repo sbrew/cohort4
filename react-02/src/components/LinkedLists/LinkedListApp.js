@@ -3,62 +3,50 @@ import linkedLists from './buisness/index';
 import LinkedListDisplay from './LinkedListDisplayComp'
 import LinkedListInput from './LLInput'
 
-let lL = new linkedLists.LinkedList()
+let linkedList = new linkedLists.LinkedList()
 
 function LinkedListApp() {
-    
-    const [linkedList, setLinkedList] = useState(lL);
-    let [current, setCurrent] = useState(null);
-    let [message, setMessage] = useState('')
+
+    // let [linkedList, setLinkedList] = useState(new linkedLists.LinkedList());
+    let [current, setCurrent] = useState('');
+
     let [total, setTotal] = useState(0);
 
     function createNewNode(subject, amount) {
-       console.log(linkedList.insertAt(subject, amount))
-        console.log(linkedList["currentNode"])
-        console.log(linkedList);
-        console.log(linkedList.head);
-        linkedList.currentNode=linkedList.head
-        setCurrent(lL.currentNode)
-        // linkedList.movingForward()
-        // setCurrentNode(linkedList.currentNode)
-        setMessage(linkedList.currentNode.show());
+        linkedList.insertAtNext(subject, amount)
+        setCurrent(linkedList.currentNode.show())
         amountTotals();
-        console.log(lL.currentNode)
     };
 
     function nextNodeSelector() {
-        linkedList.movingForward()
-        setCurrent(linkedList.currentNode)
-        console.log(linkedList)
-        if (linkedList.currentNode != null)
-            setMessage(linkedList.currentNode.show());
-
+        if (linkedList.size > 0) {
+            linkedList.movingForward()
+            console.log(linkedList);
+            setCurrent(linkedList.currentNode.show());
+        }
     }
 
     function prevNodeSelector() {
-        console.log(linkedList)
-        if (linkedList.priorNode != null) {
-            console.log(linkedList.currentNode)
+        if (linkedList.size > 0 && linkedList.currentNode.priorNode!=null) {
+            console.log(linkedList);
             linkedList.movingBackward()
-            console.log(linkedList.currentNode)
-            // setCurrentNode(linkedList.movingBackward());
-            setMessage(linkedList.currentNode.show());
-        }
-        return;
+            console.log(linkedList)
+            setCurrent(linkedList.currentNode.show());
+        } else if (linkedList.size > 0 && linkedList.currentNode.priorNode===null){
+            setCurrent("linked list head");
 
+            //build a way to replace first location
+        }
     }
 
     function deleteCurrentNode() {
         linkedList.removeCurrent()
-        // setCurrentNode(linkedList.removeCurrent())
         amountTotals();
         console.log(linkedList.currentNode)
-        // console.log(currentNode)
-        if (linkedList.currentNode !== null) {
-            // setCurrentNode(linkedList.currentNode);
-            setMessage(linkedList.currentNode.show());
+        if (linkedList.currentNode != null) {
+            setCurrent(linkedList.currentNode.show());
         } else
-        setMessage('')
+            setCurrent('')
     }
 
     function amountTotals() {
@@ -70,10 +58,13 @@ function LinkedListApp() {
         <div className="LinkedListComp">
 
             <h1>Build some Linked list stuff here</h1>
-            <LinkedListInput createNewNode={createNewNode} />
+
+            <LinkedListInput
+                createNewNode={createNewNode}
+            />
             <LinkedListDisplay
                 linkedList={linkedList}
-                message={message}
+                current={current}
                 nextNodeSelector={nextNodeSelector}
                 prevNodeSelector={prevNodeSelector}
                 deleteCurrentNode={deleteCurrentNode}

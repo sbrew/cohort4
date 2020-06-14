@@ -1,18 +1,18 @@
 import React from 'react';
 import LinkedListNodeComp from './LinkedListNode'
 
-function LinkedListDisplay({ linkedList, nextNodeSelector, prevNodeSelector, message, deleteCurrentNode, total }) {
+function LinkedListDisplay({ linkedList, nextNodeSelector, prevNodeSelector, current, deleteCurrentNode, total }) {
 
     const nodeDisplay = [];
-    let currentNode = linkedList.head;
+    let currentN = linkedList.head;
     let keyCounter = 0;
     if (linkedList.size > 0) {
-        while (currentNode) {
+        while (currentN) {
             nodeDisplay.push(<LinkedListNodeComp
-                node={currentNode}
+                node={currentN}
                 key={keyCounter++}
             />);
-            currentNode = currentNode.forwardNode;
+            currentN = currentN.forwardNode;
         }
     }
 
@@ -31,7 +31,7 @@ function LinkedListDisplay({ linkedList, nextNodeSelector, prevNodeSelector, mes
             <button onClick={nextNodeSelector}>Next Node</button>
             <button onClick={deleteCurrentNode}>Delete Node</button>
             <div>
-                <h2>current Node: {message} </h2>
+                <h2>current Node: {current} </h2>
             </div>
             <div>
                 <h3>Total: {total}</h3>

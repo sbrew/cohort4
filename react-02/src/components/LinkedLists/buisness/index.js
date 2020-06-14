@@ -24,10 +24,7 @@ class LinkedList {
     }
 
     goToHeadNode() {
-        
         this.currentNode = this.head;
-       
-
     }
 
     goToTailNode() {
@@ -35,26 +32,23 @@ class LinkedList {
     }
 
     movingForward() {
-        if (this.size > 0 && this.currentNode.forwardNode === null) {
-            this.currentNode = this.tail;
-        }
-        else if (this.size > 0 && this.currentNode.forwardNode !== null) {
+        if (this.currentNode.forwardNode!==null ){
             this.currentNode = this.currentNode.forwardNode
-        }
-        return this.currentNode
+            return this.currentNode
+        } return;
 
     }
 
     movingBackward() {
-        if (this.size > 0 && this.currentNode.priorNode !== null) {
+        if (this.currentNode.priorNode !==null){
             this.currentNode = this.currentNode.priorNode
-        }
-        return this.currentNode
-
+            return this.currentNode
+        }else this.currentNode=this.currentNode.priorNode
+        
     }
 
     //insert at location
-    insertAt(subject, amount) {
+    insertAtNext(subject, amount) {
         let node = new ListNode(subject, amount);
         let current;
 
@@ -62,36 +56,26 @@ class LinkedList {
         if (!this.head) {
             this.head = node;
             this.tail = node;
-            this.currentNode = this.head;
-            this.size++;
-            // console.log('at the head')
-            return this.currentNode
-
+            this.currentNode = node;
 
             //if replacing first item in list
-        } else if (this.currentNode.priorNode === null) {
+        } else if (!this.currentNode) {
             let newForward = this.head;
             this.currentNode = new ListNode(subject, amount);
             this.currentNode.forwardNode = newForward;
             newForward.priorNode = this.currentNode
             this.head = this.currentNode;
-            this.size++;
-            return this.currentNode
-           
-           
+
             //if replacing tail
-        } else if (this.currentNode.forwardNode===null) {
-            // console.log('at the tail')
+        } else if (!this.currentNode.forwardNode) {
             current = this.currentNode
             this.tail = node;
             this.currentNode = node;
             this.currentNode.priorNode = current
             current.forwardNode = this.currentNode;
-            this.size++;
-            return this.currentNode
+
             //if adding in the middle
         } else {
-            // console.log('in the middle')
             current = this.currentNode;
             let oldForward = current.forwardNode;
             this.currentNode = node;
@@ -99,17 +83,14 @@ class LinkedList {
             current.forwardNode = this.currentNode;
             this.currentNode.forwardNode = oldForward;
             oldForward.priorNode = this.currentNode
-            this.size++;
-            return this.currentNode
         }
-        // this.size++;
-        // return this.currentNode
+        this.size++;
     }
 
     //remove at location
     removeCurrent() {
         let deletedNode = this.currentNode;
-        if (!this.head) {
+        if(!this.head){
             return;
         }
         //single list item
@@ -139,15 +120,15 @@ class LinkedList {
             endDeletion.priorNode = this.currentNode;
         }
         this.size--;
-        return this.currentNode
+        
     }
 
     totalFunction() {
         let total = 0;
-        this.currentNode = this.head;
-        while (this.currentNode) {
-            total += this.currentNode.amount;
-            this.currentNode = this.currentNode.forwardNode;
+        let nodeTotals = this.head;
+        while (nodeTotals) {
+            total += nodeTotals.amount;
+            nodeTotals = nodeTotals.forwardNode;
         }
         return total;
     }
