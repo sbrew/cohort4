@@ -2,7 +2,7 @@ import React from "react";
 import { fireEvent, render, screen, act } from '@testing-library/react';
 
 import AccountDisplayComp from './AccountDisplayComp';
-import funcs from './AccountController';
+import funcs from './buisness/AccountController';
 
 
 test('test the basic Account display', () => {

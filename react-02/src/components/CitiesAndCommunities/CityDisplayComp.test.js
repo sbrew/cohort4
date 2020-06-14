@@ -2,7 +2,7 @@ import React from "react";
 import { fireEvent, render, screen, act } from '@testing-library/react';
 
 import CityDisplayComp from './CityDisplayComp';
-import funcs from './CCController';
+import funcs from './buisness/CCController';
 
 test('test the basic City Card Display', () => {
     // set up the callbacks to test later
