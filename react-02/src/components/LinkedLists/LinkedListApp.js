@@ -3,29 +3,32 @@ import linkedLists from './buisness/index';
 import LinkedListDisplay from './LinkedListDisplayComp'
 import LinkedListInput from './LLInput'
 
-
-const linkedList = new linkedLists.LinkedList();
+let lL = new linkedLists.LinkedList()
 
 function LinkedListApp() {
-
+    
+    const [linkedList, setLinkedList] = useState(lL);
+    let [current, setCurrent] = useState(null);
     let [message, setMessage] = useState('')
-    let [currentNode, setCurrentNode] = useState('');
     let [total, setTotal] = useState(0);
 
     function createNewNode(subject, amount) {
-        linkedList.insertAtNext(subject, amount);
-        // setCurrentNode(linkedList.insertAtNext(subject, amount));
-        setCurrentNode(linkedList.get());
-        console.log(linkedList.currentNode)
-        console.log(linkedList)
-        console.log(currentNode)
+       console.log(linkedList.insertAt(subject, amount))
+        console.log(linkedList["currentNode"])
+        console.log(linkedList);
+        console.log(linkedList.head);
+        linkedList.currentNode=linkedList.head
+        setCurrent(lL.currentNode)
+        // linkedList.movingForward()
+        // setCurrentNode(linkedList.currentNode)
         setMessage(linkedList.currentNode.show());
         amountTotals();
+        console.log(lL.currentNode)
     };
 
     function nextNodeSelector() {
-        setCurrentNode(linkedList.movingForward());
-        console.log(linkedList.currentNode)
+        linkedList.movingForward()
+        setCurrent(linkedList.currentNode)
         console.log(linkedList)
         if (linkedList.currentNode != null)
             setMessage(linkedList.currentNode.show());
@@ -33,9 +36,12 @@ function LinkedListApp() {
     }
 
     function prevNodeSelector() {
+        console.log(linkedList)
         if (linkedList.priorNode != null) {
-            setCurrentNode(linkedList.movingBackward());
             console.log(linkedList.currentNode)
+            linkedList.movingBackward()
+            console.log(linkedList.currentNode)
+            // setCurrentNode(linkedList.movingBackward());
             setMessage(linkedList.currentNode.show());
         }
         return;
@@ -43,10 +49,11 @@ function LinkedListApp() {
     }
 
     function deleteCurrentNode() {
-        setCurrentNode(linkedList.removeCurrent())
+        linkedList.removeCurrent()
+        // setCurrentNode(linkedList.removeCurrent())
         amountTotals();
         console.log(linkedList.currentNode)
-        console.log(currentNode)
+        // console.log(currentNode)
         if (linkedList.currentNode !== null) {
             // setCurrentNode(linkedList.currentNode);
             setMessage(linkedList.currentNode.show());
