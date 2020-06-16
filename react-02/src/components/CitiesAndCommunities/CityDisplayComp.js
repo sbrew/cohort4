@@ -1,7 +1,9 @@
 import React from 'react';
 import '../Display.css';
+import { ThemeContext } from '../../contexts/AppContext';
 
 class CityDisplayComp extends React.Component {
+    static contextType = ThemeContext;
     constructor(props) {
         super(props);
         this.state = {
@@ -29,8 +31,10 @@ class CityDisplayComp extends React.Component {
     }
 
     render() {
+        const { isLightTheme, light, dark } = this.context;
+        const theme = isLightTheme ? light : dark;
         return (
-            <div id="updateCommunity" className="accountCards">
+            <div id="updateCommunity" className="accountCards"  style={{color: theme.syntax, background: theme.bg}}>
                 <h2>{this.state.city.name}</h2>
                 <span>Latitude: {this.state.city.latitude}</span> <span>Longitude: {this.state.city.longitude}</span>
                 <p>{this.props.hemisphere}</p>

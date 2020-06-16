@@ -16,8 +16,8 @@ function SVGicons(props) {
         <img onClick={() => {props.handleClick(2)}} src={Accounts} className="SVG-icon" alt="icon" />
         <img onClick={() => {props.handleClick(3)}} src={City} className="SVG-icon" alt="icon" />
         <img onClick={() => {props.handleClick(4)}} src={blackOnWhite} className="SVG-icon filter-white" alt="icon" />
-        <img src={gears} className="SVG-icon filter-green" alt="icon" />
-        <img src={spectrumOnWhite} className="SVG-icon" alt="icon" />
+        <img onClick={() => {props.handleClick(5)}} src={spectrumOnWhite} className="SVG-icon" alt="icon" />
+        <img onClick={() => {props.handleClick(6)}} src={gears} className="SVG-icon filter-green" alt="icon" />
       </header>
     </div>
   );

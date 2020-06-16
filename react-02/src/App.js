@@ -6,6 +6,9 @@ import Game from './components/TicTacToe';
 import AccountsUI from './components/AccountApp/AccountsApp';
 import CitiesUI from './components/CitiesAndCommunities/CitiesAndCommunitiesApp';
 import LinkedListApp from './components/LinkedLists/LinkedListApp'
+import DataStructureApp from './components/FIFO&LIFO/Queue_StackApp'
+import ThemeContextProvider from './contexts/AppContext';
+import Settings from './contexts/Settings';
 
 class App extends React.Component {
   constructor(props) {
@@ -25,12 +28,16 @@ class App extends React.Component {
   render() {
     return (
       <div className="App">
-        <SVGicons handleClick={this.handleClick}/>
-        {this.state.imageclick === 0 && <MainPage />}
-        {this.state.imageclick === 1 && <Game />}
-        {this.state.imageclick === 2 && <AccountsUI />}
-        {this.state.imageclick === 3 && <CitiesUI />}
-        {this.state.imageclick === 4 && <LinkedListApp />}
+        <ThemeContextProvider>
+          <SVGicons handleClick={this.handleClick} />
+          {this.state.imageclick === 0 && <MainPage />}
+          {this.state.imageclick === 1 && <Game />}
+          {this.state.imageclick === 2 && <AccountsUI />}
+          {this.state.imageclick === 3 && <CitiesUI />}
+          {this.state.imageclick === 4 && <LinkedListApp />}
+          {this.state.imageclick === 5 && <DataStructureApp />}
+          {this.state.imageclick === 6 && <Settings />}
+        </ThemeContextProvider>
 
       </div>
     );

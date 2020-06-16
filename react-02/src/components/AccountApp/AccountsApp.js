@@ -2,8 +2,10 @@ import React from 'react';
 import AccountStuff from './buisness/AccountController'
 import AccountDisplayComp from './AccountDisplayComp'
 import '../Display.css';
+import { ThemeContext } from '../../contexts/AppContext';
 
 class AccountsUI extends React.Component {
+    static contextType = ThemeContext;
     constructor() {
 
         super();
@@ -67,6 +69,10 @@ class AccountsUI extends React.Component {
     }
 
     render() {
+        const { isLightTheme, light, dark } = this.context;
+        const theme = isLightTheme ? light : dark;
+
+
         const totalCash = this.state.acctCtrl.totalCash();
         const biggestAcct = this.state.acctCtrl.biggestAccount();
         const smallestAcct = this.state.acctCtrl.smallestAccount();
@@ -85,7 +91,7 @@ class AccountsUI extends React.Component {
 
         return (
             <div className="AccountUI" >
-                <div id="newAccount">
+                <div id="newAccount" style={{color: theme.syntax, background: theme.bg}}>
 
                     <h1>Bank of EvolveU</h1>
 

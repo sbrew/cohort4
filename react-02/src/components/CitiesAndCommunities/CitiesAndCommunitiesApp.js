@@ -2,8 +2,10 @@ import React from 'react';
 import cityStuff from './buisness/CCController'
 import CityDisplayComp from './CityDisplayComp'
 import '../Display.css';
+import { ThemeContext } from '../../contexts/AppContext';
 
 class CitiesUI extends React.Component {
+    static contextType = ThemeContext;
     constructor() {
         super();
         this.cityName = React.createRef();
@@ -95,6 +97,8 @@ class CitiesUI extends React.Component {
     // }
 
     render() {
+        const { isLightTheme, light, dark } = this.context;
+        const theme = isLightTheme ? light : dark;
         const mostNorthern = this.state.comCtrler.getMostNorthern();
         const mostSouthern = this.state.comCtrler.getMostSouthern();
         const totalPopulation = this.state.comCtrler.getPopulation();
@@ -114,7 +118,7 @@ class CitiesUI extends React.Component {
 
         return (
             <div id="citiesCommunitiesID">
-                <div id="newCommunityID">
+                <div id="newCommunityID"  style={{color: theme.syntax, background: theme.bg}}>
                     <h1>Cities and Communities</h1>
         City Name <input defaultValue="" id="idCityName" ref={this.cityName} type="text" /><br />
         Latitude <input defaultValue="" id="idLatitude" ref={this.latitude} type="text" /><br />

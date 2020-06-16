@@ -1,5 +1,5 @@
-import React, { Suspense } from 'react';
-import { fireEvent, render, screen, act } from '@testing-library/react';
+import React from 'react';
+import { fireEvent, render, screen } from '@testing-library/react';
 import LinkedListDisplay from './LinkedListDisplayComp';
 import linkedLists from './buisness/index';
 
