@@ -21,16 +21,13 @@ function LinkedListApp() {
     function nextNodeSelector() {
         if (linkedList.size > 0) {
             linkedList.movingForward()
-            console.log(linkedList);
             setCurrent(linkedList.currentNode.show());
         }
     }
 
     function prevNodeSelector() {
         if (linkedList.size > 0 && linkedList.currentNode.priorNode!=null) {
-            console.log(linkedList);
             linkedList.movingBackward()
-            console.log(linkedList)
             setCurrent(linkedList.currentNode.show());
         } else if (linkedList.size > 0 && linkedList.currentNode.priorNode===null){
             setCurrent("linked list head");
@@ -42,7 +39,6 @@ function LinkedListApp() {
     function deleteCurrentNode() {
         linkedList.removeCurrent()
         amountTotals();
-        console.log(linkedList.currentNode)
         if (linkedList.currentNode != null) {
             setCurrent(linkedList.currentNode.show());
         } else

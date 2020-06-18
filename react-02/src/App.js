@@ -7,15 +7,24 @@ import AccountsUI from './components/AccountApp/AccountsApp';
 import CitiesUI from './components/CitiesAndCommunities/CitiesAndCommunitiesApp';
 import LinkedListApp from './components/LinkedLists/LinkedListApp'
 import DataStructureApp from './components/FIFO&LIFO/Queue_StackApp'
-import ThemeContextProvider from './contexts/AppContext';
+import { ThemeContext, AppTheme } from './contexts/AppContext';
 import Settings from './contexts/Settings';
 
 class App extends React.Component {
   constructor(props) {
     super(props);
+    this.themeChange = () => {
+      if (this.state.theme === AppTheme.light) {
+        this.setState({ theme: AppTheme.dark })
+      } else {
+        this.setState({ theme: AppTheme.light })
+      };
+    }
+
     this.state = {
       imageclick: 0,
-
+      themeChange: this.themeChange,
+      theme: AppTheme.light
     };
   }
 
@@ -28,7 +37,7 @@ class App extends React.Component {
   render() {
     return (
       <div className="App">
-        <ThemeContextProvider>
+        <ThemeContext.Provider value={this.state}>
           <SVGicons handleClick={this.handleClick} />
           {this.state.imageclick === 0 && <MainPage />}
           {this.state.imageclick === 1 && <Game />}
@@ -37,7 +46,7 @@ class App extends React.Component {
           {this.state.imageclick === 4 && <LinkedListApp />}
           {this.state.imageclick === 5 && <DataStructureApp />}
           {this.state.imageclick === 6 && <Settings />}
-        </ThemeContextProvider>
+        </ThemeContext.Provider>
 
       </div>
     );

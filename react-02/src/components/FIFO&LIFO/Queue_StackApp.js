@@ -25,7 +25,7 @@ function DataStructureApp() {
             stack.newItem = queue.newItem
             stack.lastKey = queue.lastKey
             setNewObject(queue.newItem.name)
-            console.log(stack.items.length)
+            // console.log(stack.items.length)
         } else {
             stack.putIn(newObj)
             queue.items = stack.items
@@ -91,7 +91,7 @@ function DataStructureApp() {
                 <div>
                     <label>
                         Queue/Stack
-          <input name="isStack" type="checkbox" checked={isStack} onChange={onIsStack} />
+          <input id="iDIsStack" type="checkbox" checked={isStack} onChange={onIsStack} />
                     </label>
                 </div>
             </main><br /><br />

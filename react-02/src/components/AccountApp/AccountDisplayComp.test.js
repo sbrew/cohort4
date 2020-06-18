@@ -10,18 +10,20 @@ test('test the basic Account display', () => {
     const mockdepositClickCallback = jest.fn();
     const mockwithdrawClickCallback = jest.fn();
     const mockcloseClickCallback = jest.fn();
-    
+    const mockHandleBalanceChange = jest.fn();
+    const mockBalanceChange = jest.fn();
+
     // set up test data
     // let accounts = {
-        //     '1': { accountName: 'checking', balance: 100, key: 1 },
-        //     '2': { accountName: 'savings', balance: 1000, key: 2 }
-        // }
+    //     '1': { accountName: 'checking', balance: 100, key: 1 },
+    //     '2': { accountName: 'savings', balance: 1000, key: 2 }
+    // }
 
-        const controller = new funcs.AccountController();
-        let accounts= controller.accounts= {
-            '1': { accountName: 'checking', balance: 100, key: 1 },
-            '2': { accountName: 'savings', balance: 1000, key: 2 }
-        }
+    const controller = new funcs.AccountController();
+    let accounts = controller.accounts = {
+        '1': { accountName: 'checking', balance: 100, key: 1 },
+        '2': { accountName: 'savings', balance: 1000, key: 2 }
+    }
 
     let cards = Object.keys(accounts).map(key => {
         const account = accounts[key];
@@ -31,39 +33,19 @@ test('test the basic Account display', () => {
             depositClick={mockdepositClickCallback}
             withdrawClick={mockwithdrawClickCallback}
             closeClick={mockcloseClickCallback}
+            onBalanceChange={mockHandleBalanceChange}
+            balanceChange={mockBalanceChange}
         />
     });
 
     render(
-        // <div>
-        // <AccountDisplayComp
-        //     account={account[1]}
-        //     key={account[1].key}
-        //     onBalanceChange={mockonBalanceChangeCallback}
-        //     depositClick={mockdepositClickCallback}
-        //     withdrawClick={mockwithdrawClickCallback}
-        //     closeClick={mockcloseClickCallback}
-        // />
-
-        // <AccountDisplayComp
-        //     account={account[2]}
-        //     key={account[2].key}
-        //     accountName={account.accountName}
-        //     onBalanceChange={mockonBalanceChangeCallback}
-        //     depositClick={mockdepositClickCallback}
-        //     withdrawClick={mockwithdrawClickCallback}
-        //     closeClick={mockcloseClickCallback}
-        // />
-        // </div>
         cards
     );
 
-    // screen.debug();
-
     screen.getByText(/account name savings/i);
-  
-     let depositButton=screen.getAllByRole('button')
-  
+
+    let depositButton = screen.getAllByRole('button')
+
     fireEvent.click(
         depositButton[0]
     );
@@ -80,12 +62,18 @@ test('test the basic Account display', () => {
     fireEvent.click(
         depositButton[2]
     );
-    
+
     expect(mockcloseClickCallback.mock.calls.length).toBe(1);
     fireEvent.click(
         depositButton[5]
     );
     expect(mockcloseClickCallback.mock.calls.length).toBe(2);
+
+    let input = document.getElementById("savings")
+    fireEvent.change(input, { target: { value: 50 } })
+    fireEvent.click(
+        depositButton[4]
+    );
 });
 
 function click(txt) {

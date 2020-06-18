@@ -6,20 +6,29 @@ import qSFunctions from './buisness/FIFO_LIFO';
 test('test the basic queue/stack display interface', () => {
     const mockPutInClickCallback = jest.fn();
   
-    //test data
-    let queue = new qSFunctions.Queue()
-    queue.putIn("A")
-
-    render(<DataStructureApp
-        
-         />);
+    render(<DataStructureApp />);
 
     screen.getByText(/queues & stacks/i); 
-    
+    let item = screen.getByPlaceholderText("Enter Item")
+    fireEvent.change(item, { target: { value: 'test' } })
     click('Put In')
+    screen.getByText(/New Item Added: test/i);
+    screen.getByText(/queue aka first/i);
+
+    let switchButton = document.getElementById('iDIsStack')
+    fireEvent.click(switchButton);
+    screen.getByText(/stack aka Last/i);
+
+    fireEvent.change(item, { target: { value: 'secondary' } })
+    click('Put In')
+    screen.getByText(/new item added: secondary/i);
+
     click('Take Out')
-    expect(queue.items.length).toBe(1)
-    screen.debug()
+    screen.getByText(/recently deleted item: secondary/i);
+    fireEvent.click(switchButton);
+    click('Take Out')
+    screen.getByText(/recently deleted item: test/i);
+    // screen.debug()
 });
 
 function click(txt) {

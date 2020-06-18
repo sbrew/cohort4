@@ -11,7 +11,7 @@ expect(queue.takeOut().name).toBe( 'Steve')
 expect(queue.newItem.name).toBe('Luc')
 expect(queue.takeOut().name).toBe( 'Luc')
 expect(queue.takeOut()).toBe()
-expect(queue.newItem).toBeNull()
+expect(queue.newItem).toBe("Nothing Left")
 });
 
 test('does the stack work', () => {

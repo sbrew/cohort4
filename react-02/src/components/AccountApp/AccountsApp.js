@@ -5,9 +5,7 @@ import '../Display.css';
 import { ThemeContext } from '../../contexts/AppContext';
 
 class AccountsUI extends React.Component {
-    static contextType = ThemeContext;
     constructor() {
-
         super();
         this.accountName = React.createRef();
         this.initialDeposit = React.createRef();
@@ -38,7 +36,6 @@ class AccountsUI extends React.Component {
 
     handleBalanceChange = (balanceChange) => {
         this.setState({ balanceChange })
-        console.log(balanceChange)
     }
 
     createAccountClick = () => {
@@ -69,8 +66,7 @@ class AccountsUI extends React.Component {
     }
 
     render() {
-        const { isLightTheme, light, dark } = this.context;
-        const theme = isLightTheme ? light : dark;
+        const {theme} = this.context;
 
 
         const totalCash = this.state.acctCtrl.totalCash();
@@ -91,8 +87,8 @@ class AccountsUI extends React.Component {
 
         return (
             <div className="AccountUI" >
-                <div id="newAccount" style={{color: theme.syntax, background: theme.bg}}>
-
+                <div id="newAccount" style={{color: theme.syntax, background: theme.background}}>
+                {/* <div id="newAccount" > */}
                     <h1>Bank of EvolveU</h1>
 
                     {/* Account Name: <input name="accountName" value={this.state.accountName} onChange={this.handleNameInput} type="text" />
@@ -117,5 +113,5 @@ class AccountsUI extends React.Component {
         );
     }
 }
+AccountsUI.contextType=ThemeContext
 export default AccountsUI;
-

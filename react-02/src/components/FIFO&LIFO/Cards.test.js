@@ -2,6 +2,8 @@ import React from 'react';
 import {  render, screen } from '@testing-library/react';
 import Cards from './Cards';
 import qSFunctions from './buisness/FIFO_LIFO';
+import '@testing-library/jest-dom/extend-expect'
+// import { ThemeContext } from '../../contexts/AppContext';
 
 test('test the basic Card display interface', () => {
    
