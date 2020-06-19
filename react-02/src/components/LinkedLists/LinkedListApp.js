@@ -31,8 +31,6 @@ function LinkedListApp() {
             setCurrent(linkedList.currentNode.show());
         } else if (linkedList.size > 0 && linkedList.currentNode.priorNode===null){
             setCurrent("linked list head");
-
-            //build a way to replace first location
         }
     }
 

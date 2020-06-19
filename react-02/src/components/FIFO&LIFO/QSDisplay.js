@@ -3,7 +3,8 @@ import Cards from './Cards'
 
 function ListDisplay(props) {
 
-    let list = props.itemList.map(thing => {
+
+    let list = props.itemList.items.map(thing => {
         return <Cards
             key={thing.key}
             thing={thing}

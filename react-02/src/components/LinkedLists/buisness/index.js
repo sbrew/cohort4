@@ -32,7 +32,10 @@ class LinkedList {
     }
 
     movingForward() {
-        if (this.currentNode.forwardNode!==null ){
+        if(this.currentNode=== null){
+            this.currentNode=this.head;
+        }
+       else if (this.currentNode.forwardNode!==null ){
             this.currentNode = this.currentNode.forwardNode
             return this.currentNode
         } return;
@@ -43,7 +46,7 @@ class LinkedList {
         if (this.currentNode.priorNode !==null){
             this.currentNode = this.currentNode.priorNode
             return this.currentNode
-        }else this.currentNode=this.currentNode.priorNode
+        }else this.currentNode=null;
         
     }
 
@@ -59,7 +62,7 @@ class LinkedList {
             this.currentNode = node;
 
             //if replacing first item in list
-        } else if (!this.currentNode) {
+        } else if (this.currentNode===null) {
             let newForward = this.head;
             this.currentNode = new ListNode(subject, amount);
             this.currentNode.forwardNode = newForward;

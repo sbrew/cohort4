@@ -6,6 +6,7 @@ function LinkedListDisplay({ linkedList, nextNodeSelector, prevNodeSelector, cur
     const nodeDisplay = [];
     let currentN = linkedList.head;
     let keyCounter = 0;
+    console.log(linkedList)
     if (linkedList.size > 0) {
         while (currentN) {
             nodeDisplay.push(<LinkedListNodeComp

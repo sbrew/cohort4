@@ -11,7 +11,7 @@ test('test the basic queue/stack display interface', () => {
     queue.putIn("A")
 
     render(<ListDisplay
-        itemList={queue.items}
+        itemList={queue}
          />);
 
     screen.getByText(/first/i);    

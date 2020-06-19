@@ -1,17 +1,19 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import LIFOApp from './LIFOApp'
-import qSFunctions from './buisness/FIFO_LIFO';
+// import qSFunctions from './buisness/FIFO_LIFO';
 import ListDisplay from './QSDisplay'
+import { ThemeContext } from '../../contexts/AppContext';
 
-let queue = new qSFunctions.Queue()
-let stack = new qSFunctions.Stack()
+// let queue = new qSFunctions.Queue()
+// let stack = new qSFunctions.Stack()
 
 function DataStructureApp() {
-
+    let  {queue, stack}  = useContext(ThemeContext);
+    // console.log(queue)
     const [isStack, setIsStack] = useState(false);
     const [newObject, setNewObject] = useState('')
     const [deletedObject, setDeletedObject] = useState('')
-    const [itemList, setItemList] = useState([])
+    // const [itemList, setItemList] = useState([])
 
     function onIsStack(e) {
         setIsStack(isStack ? false : true);
@@ -21,7 +23,7 @@ function DataStructureApp() {
         if ((isStack === false)) {
             queue.putIn(newObj)
             stack.items = queue.items
-            setItemList(queue.items)
+            // setItemList(queue.items)
             stack.newItem = queue.newItem
             stack.lastKey = queue.lastKey
             setNewObject(queue.newItem.name)
@@ -32,7 +34,7 @@ function DataStructureApp() {
             queue.newItem = stack.newItem
             queue.lastKey = stack.lastKey
             setNewObject(stack.newItem.name)
-            setItemList(stack.items)
+            // setItemList(stack.items)
         }
     }
 
@@ -97,7 +99,7 @@ function DataStructureApp() {
             </main><br /><br />
             <div>
                 <ListDisplay
-                    itemList={itemList}
+                    itemList={queue}
                 />
             </div>
         </div>

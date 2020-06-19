@@ -1,4 +1,5 @@
 import React from 'react';
+import qSFunctions from '../components/FIFO&LIFO/buisness/FIFO_LIFO';
 
 export const AppTheme = {
     light: {
@@ -15,8 +16,16 @@ export const AppTheme = {
     }
 }
 
+export const Stack=new qSFunctions.Stack()
+
+export const Queue=new qSFunctions.Queue()
+
+
 export const ThemeContext = React.createContext({
     theme: AppTheme.light,
+    stack: Stack,
+    queue : Queue,
+
     themeChange: () => {}
 });
 

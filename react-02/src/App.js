@@ -7,7 +7,7 @@ import AccountsUI from './components/AccountApp/AccountsApp';
 import CitiesUI from './components/CitiesAndCommunities/CitiesAndCommunitiesApp';
 import LinkedListApp from './components/LinkedLists/LinkedListApp'
 import DataStructureApp from './components/FIFO&LIFO/Queue_StackApp'
-import { ThemeContext, AppTheme } from './contexts/AppContext';
+import { ThemeContext, AppTheme, Stack, Queue } from './contexts/AppContext';
 import Settings from './contexts/Settings';
 
 class App extends React.Component {
@@ -24,7 +24,9 @@ class App extends React.Component {
     this.state = {
       imageclick: 0,
       themeChange: this.themeChange,
-      theme: AppTheme.light
+      theme: AppTheme.light,
+      queue: Queue,
+      stack: Stack, 
     };
   }
 
