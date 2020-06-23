@@ -96,7 +96,7 @@ class AccountsUI extends React.Component {
                     {/* Account Name: <input name="accountName" value={this.state.accountName} onChange={this.handleNameInput} type="text" />
         Initial deposit: <input name="initialDeposit" value={this.state.initialDeposit} onChange={this.handleDepositInput} type="number" /> */}
         Account Name: <input id="idAccountName" ref={this.accountName} defaultValue='' type="text" />
-        Initial deposit: <input id="idInitialDeposit" ref={this.initialDeposit} defaultValue='' type="number" />
+        Initial Deposit: <input id="idInitialDeposit" ref={this.initialDeposit} defaultValue='' type="number" />
                     <button name="createAccount" onClick={this.createAccountClick}>Add Account</button><br />
                     {this.state.message}
                 </div><br />

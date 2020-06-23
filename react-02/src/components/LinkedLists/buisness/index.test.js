@@ -30,7 +30,13 @@ test('does it insert a list item in the next node', () => {
     expect(ll.currentNode.show()).toEqual("Subject 3 Amount 3"); 
     ll.insertAtNext(5,5);
     expect(ll.head.show()).toEqual("Subject 3 Amount 3"); 
-    expect(ll.currentNode.show()).toEqual("Subject 5 Amount 5");  
+    expect(ll.currentNode.show()).toEqual("Subject 5 Amount 5"); 
+    ll.goToHeadNode();
+    ll.movingBackward();
+    ll.insertAtNext(6,6);
+    expect(ll.head.show()).toEqual("Subject 6 Amount 6"); 
+    expect(ll.currentNode.forwardNode.show()).toEqual("Subject 3 Amount 3"); 
+    console.log(ll) ;
     
 });
 

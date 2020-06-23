@@ -1,7 +1,7 @@
 import React from 'react';
 import LinkedListNodeComp from './LinkedListNode'
 
-function LinkedListDisplay({ linkedList, nextNodeSelector, prevNodeSelector, current, deleteCurrentNode, total }) {
+function LinkedListDisplay({ linkedList, nextNodeSelector, prevNodeSelector, current, deleteCurrentNode, total, firstNodeSelector, lastNodeSelector }) {
 
     const nodeDisplay = [];
     let currentN = linkedList.head;
@@ -30,9 +30,11 @@ function LinkedListDisplay({ linkedList, nextNodeSelector, prevNodeSelector, cur
             <h1>List Navigations </h1>
             <button onClick={prevNodeSelector}>Previous Node</button>
             <button onClick={nextNodeSelector}>Next Node</button>
-            <button onClick={deleteCurrentNode}>Delete Node</button>
+            <button onClick={deleteCurrentNode}>Delete Node</button><br />
+            <button onClick={firstNodeSelector}>First Node</button>
+            <button onClick={lastNodeSelector}>Last Node</button>
             <div>
-                <h2>current Node: {current} </h2>
+                <h2>Current Node: {current} </h2>
             </div>
             <div>
                 <h3>Total: {total}</h3>

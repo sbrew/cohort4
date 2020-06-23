@@ -155,8 +155,12 @@ class Community {
             return 'City name can not be blank';
         } else if (!latitude) {
             return 'Need to enter a Latitude';
+        } else if (latitude<-90 || latitude>90){
+            return 'Please enter a valid latitude';
         } else if (!longitude) {
             return 'Need to enter a Longitude';
+        } else if (longitude<-180 || longitude>180){
+            return 'Please enter a valid Longitude';
         } else if (!population) {
             return 'Need to enter Population amount';
         } else {

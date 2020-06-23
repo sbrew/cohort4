@@ -92,8 +92,8 @@ function DataStructureApp() {
                 {output}
                 <div>
                     <label>
-                        Queue/Stack
           <input id="iDIsStack" type="checkbox" checked={isStack} onChange={onIsStack} />
+                        Queue/Stack
                     </label>
                 </div>
             </main><br /><br />

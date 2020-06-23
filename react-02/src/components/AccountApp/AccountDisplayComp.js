@@ -37,11 +37,11 @@ class AccountDisplayComp extends React.Component {
         return (
 
                     <div style={{ color: theme.syntax, background: theme.background }} className="accountCards">
-                        <h2>Account name {this.state.account.accountName}</h2>
+                        <h2>Account Name {this.state.account.accountName}</h2>
                         <h2>Account Balance ${this.state.account.balance}</h2>
-                        <input id={this.state.account.accountName} value="" onChange={this.handleBalanceChange} type="number" />
+                        <input id={this.state.account.accountName} defaultValue="" onChange={this.handleBalanceChange} type="number" />
                         <button id="depositID"  onClick={this.handleDepositClick}>Deposit</button>
-                        <button id="withdrawID" onClick={this.handleWithdrawClick}>withdraw</button><br />
+                        <button id="withdrawID" onClick={this.handleWithdrawClick}>Withdraw</button><br />
                         <button id="closeAcctID" onClick={this.handleCloseClick}>Close Account</button>
                     </div>
                 )

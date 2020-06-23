@@ -190,7 +190,7 @@ function Square(props) {
             />
           </div>
           <div className="game-info">
-            <div>{status}</div>
+            <div role='status'>{status}</div>
             <ol>{moves}</ol>
           </div>
         </div>

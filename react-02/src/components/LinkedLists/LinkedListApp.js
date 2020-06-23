@@ -26,10 +26,14 @@ function LinkedListApp() {
     }
 
     function prevNodeSelector() {
-        if (linkedList.size > 0 && linkedList.currentNode.priorNode!=null) {
+        if(current==="linked list head"){
+            return;
+        }
+        else if (linkedList.size > 0 && linkedList.currentNode.priorNode!=null) {
             linkedList.movingBackward()
             setCurrent(linkedList.currentNode.show());
         } else if (linkedList.size > 0 && linkedList.currentNode.priorNode===null){
+            linkedList.movingBackward()
             setCurrent("linked list head");
         }
     }
@@ -42,6 +46,18 @@ function LinkedListApp() {
         } else
             setCurrent('')
     }
+
+    function firstNodeSelector() {
+            linkedList.goToHeadNode()
+            setCurrent(linkedList.currentNode.show());
+        }
+    
+
+    function lastNodeSelector() {
+        linkedList.goToTailNode()
+        setCurrent(linkedList.currentNode.show());
+    }
+
 
     function amountTotals() {
         setTotal(linkedList.totalFunction());
@@ -62,6 +78,8 @@ function LinkedListApp() {
                 nextNodeSelector={nextNodeSelector}
                 prevNodeSelector={prevNodeSelector}
                 deleteCurrentNode={deleteCurrentNode}
+                lastNodeSelector={lastNodeSelector}
+                firstNodeSelector={firstNodeSelector}
                 total={total} />
 
         </div>
