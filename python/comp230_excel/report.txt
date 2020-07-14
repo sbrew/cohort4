@@ -1,0 +1,12 @@
+--------Customer invoice--------
+Customer: Richmound Hulmes       Date:2020-04-16
+Customer email: rhulmes1@loc.gov
+
+----------------------
+Items:
+Desk x 5---  $225
+Lamp x 3---  $75
+Stool x 8---  $240
+total: $540
+
+----------------------

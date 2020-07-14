@@ -6,15 +6,22 @@ const functions = {
         
             
         div.appendChild(document.createTextNode(text));
+        const br = document.createElement('br');
+        div.appendChild(br);
+
 
 
         const add = document.createElement('button');
         add.appendChild(document.createTextNode("After"));
         div.appendChild(add);
+        const br2 = document.createElement('br');
+        div.appendChild(br2);
 
         const before = document.createElement('button');
         before.appendChild(document.createTextNode("Before"));
         div.appendChild(before);
+        const br3 = document.createElement('br');
+        div.appendChild(br3);
 
         const delBut = document.createElement('button');
         delBut.appendChild(document.createTextNode("Delete"));
