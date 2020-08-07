@@ -82,12 +82,16 @@ def dictionaryBuilder():
 def clientInvoices(invoice_no):
     db = dictionaryBuilder()
     name = ""
+    # print(db)
+    # print(invoice_no)
     total = db['invoices'][invoice_no]['total_price']
     products = []
     # customer name
     customer = db['invoices'][invoice_no]
     customerid = customer['customer_id']
     name = f"{db['customers'][customerid]['f_name']} {db['customers'][customerid]['l_name']}"
+    # invoicenumber
+    invoiceNumber = db['invoices'][invoice_no]['invoice_no']
 
     # items purchased
     for items in db['invoice line items']:
@@ -99,18 +103,15 @@ def clientInvoices(invoice_no):
         report.write("--------Customer invoice--------\n")
         report.write(f"Customer: {name}       Date:{db['invoices'][invoice_no]['invoice_date']}\n")
         report.write(f"Customer email: {db['customers'][customerid]['email']}\n")
+        report.write(f"Invoice number: {invoiceNumber}\n")
         report.write("\n----------------------\n")
         report.write("Items:\n")
         for items in products:
             report.write(f"{items}\n")
         report.write(f"total: ${total}\n")
         report.write("\n----------------------\n")
-        # report.writelines([f"Occupied Residential dwellings: {classCount['Residential']}, Population: {censusResults['Residential Resident Count']}\n",
-        #                    f"Occupied Industrial dwellings: {classCount['Industrial']}, Population: {censusResults['Industrial Resident Count']}\n",
-        #                    f"Major Park dwellings: {classCount['Major Park']}, Population: {censusResults['Major Park Resident Count']}\n",
-        #                    f"Residual Sub Area dwellings: {classCount['Residual Sub Area']}, Population: {censusResults['Residual Sub Area Resident Count']}\n",
-        #                    ])
         
     return name, total, products
-
-
+x=int(input("Please enter an invoice number: "))
+# invoice = input()
+clientInvoices(x)

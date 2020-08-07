@@ -1,12 +1,15 @@
 --------Customer invoice--------
-Customer: Richmound Hulmes       Date:2020-04-16
-Customer email: rhulmes1@loc.gov
+Customer: Crysta Moncaster       Date:2020-05-12
+Customer email: cmoncaster7@alexa.com
+Invoice number: 9
 
 ----------------------
 Items:
-Desk x 5---  $225
-Lamp x 3---  $75
-Stool x 8---  $240
-total: $540
+Desk x 2---  $90
+Lamp x 1---  $25
+Stool x 4---  $120
+Water Bottle x 8---  $64
+Backpack x 9---  $315
+total: $614
 
 ----------------------
